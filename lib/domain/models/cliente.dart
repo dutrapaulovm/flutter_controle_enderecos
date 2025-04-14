@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Cliente {
+class Estado {
   int? id;
   String? nome;
   String? email;
@@ -14,8 +14,8 @@ class Cliente {
   String? nomeCidade;
   int? idEstado;
   String? nomeEstado;
-  String? uf;  
-  Cliente({
+  String? uf;
+  Estado({
     this.id,
     this.nome,
     this.email,
@@ -31,7 +31,7 @@ class Cliente {
     this.uf,
   });
 
-  Cliente copyWith({
+  Estado copyWith({
     int? id,
     String? nome,
     String? email,
@@ -46,7 +46,7 @@ class Cliente {
     String? nomeEstado,
     String? uf,
   }) {
-    return Cliente(
+    return Estado(
       id: id ?? this.id,
       nome: nome ?? this.nome,
       email: email ?? this.email,
@@ -81,8 +81,8 @@ class Cliente {
     };
   }
 
-  factory Cliente.fromMap(Map<String, dynamic> map) {
-    return Cliente(
+  factory Estado.fromMap(Map<String, dynamic> map) {
+    return Estado(
       id: map['id'] != null ? map['id'] as int : null,
       nome: map['nome'] != null ? map['nome'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
@@ -92,16 +92,19 @@ class Cliente {
       numero: map['numero'] != null ? map['numero'] as String : null,
       cep: map['cep'] != null ? map['cep'] as String : null,
       idCidade: map['idCidade'] != null ? map['idCidade'] as int : null,
-      nomeCidade: map['nomeCidade'] != null ? map['nomeCidade'] as String : null,
+      nomeCidade:
+          map['nomeCidade'] != null ? map['nomeCidade'] as String : null,
       idEstado: map['idEstado'] != null ? map['idEstado'] as int : null,
-      nomeEstado: map['nomeEstado'] != null ? map['nomeEstado'] as String : null,
+      nomeEstado:
+          map['nomeEstado'] != null ? map['nomeEstado'] as String : null,
       uf: map['uf'] != null ? map['uf'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Cliente.fromJson(String source) => Cliente.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Estado.fromJson(String source) =>
+      Estado.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -109,39 +112,38 @@ class Cliente {
   }
 
   @override
-  bool operator ==(covariant Cliente other) {
+  bool operator ==(covariant Estado other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.nome == nome &&
-      other.email == email &&
-      other.telefone == telefone &&
-      other.rua == rua &&
-      other.bairro == bairro &&
-      other.numero == numero &&
-      other.cep == cep &&
-      other.idCidade == idCidade &&
-      other.nomeCidade == nomeCidade &&
-      other.idEstado == idEstado &&
-      other.nomeEstado == nomeEstado &&
-      other.uf == uf;
+
+    return other.id == id &&
+        other.nome == nome &&
+        other.email == email &&
+        other.telefone == telefone &&
+        other.rua == rua &&
+        other.bairro == bairro &&
+        other.numero == numero &&
+        other.cep == cep &&
+        other.idCidade == idCidade &&
+        other.nomeCidade == nomeCidade &&
+        other.idEstado == idEstado &&
+        other.nomeEstado == nomeEstado &&
+        other.uf == uf;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      nome.hashCode ^
-      email.hashCode ^
-      telefone.hashCode ^
-      rua.hashCode ^
-      bairro.hashCode ^
-      numero.hashCode ^
-      cep.hashCode ^
-      idCidade.hashCode ^
-      nomeCidade.hashCode ^
-      idEstado.hashCode ^
-      nomeEstado.hashCode ^
-      uf.hashCode;
+        nome.hashCode ^
+        email.hashCode ^
+        telefone.hashCode ^
+        rua.hashCode ^
+        bairro.hashCode ^
+        numero.hashCode ^
+        cep.hashCode ^
+        idCidade.hashCode ^
+        nomeCidade.hashCode ^
+        idEstado.hashCode ^
+        nomeEstado.hashCode ^
+        uf.hashCode;
   }
 }
