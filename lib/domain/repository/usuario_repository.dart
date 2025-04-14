@@ -2,33 +2,22 @@ import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
 import 'package:flutter_controle_enderecos/domain/repository/repository.dart';
 
 class UsuarioRepository extends Repository<Usuario> {
-  @override
-  Future<int> delete(Usuario entity) {
-    // TODO: implement delete
-    throw UnimplementedError();
-  }
+  final Repository<Usuario> _dataSource;
+
+  UsuarioRepository(this._dataSource);
 
   @override
-  Future<List<Usuario>> findAll(Usuario entity) {
-    // TODO: implement findAll
-    throw UnimplementedError();
-  }
+  Future<int> insert(Usuario entity) => _dataSource.insert(entity);
 
   @override
-  Future<Usuario?> findById(Usuario entity) {
-    // TODO: implement findById
-    throw UnimplementedError();
-  }
+  Future<int> update(Usuario entity) => _dataSource.update(entity);
 
   @override
-  Future<int> insert(Usuario entity) {
-    // TODO: implement insert
-    throw UnimplementedError();
-  }
+  Future<int> delete(Usuario entity) => _dataSource.delete(entity);
 
   @override
-  Future<int> update(Usuario entity) {
-    // TODO: implement update
-    throw UnimplementedError();
-  }
+  Future<Usuario?> findById(Usuario entity) => _dataSource.findById(entity);
+
+  @override
+  Future<List<Usuario>> findAll(Usuario entity) => _dataSource.findAll(entity);
 }

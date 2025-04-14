@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:flutter_controle_enderecos/domain/models/entity.dart';
 
 class Estado extends Entity {
-  int? id;
   String? nome;
   String? uf;
   Estado({
-    this.id,
+    super.id,
     this.nome,
     this.uf,
   });
@@ -67,7 +66,4 @@ class Estado extends Entity {
   fromMap(Map<String, dynamic> map) {
     Estado.fromMap(map);
   }
-
-  @override
-  get getValueId => id;
 }

@@ -20,6 +20,16 @@ class ApplicationException implements Exception {
   String error() => toString();
 }
 
+/// Thrown by the repository when a problem occurs.
+class RepositoryException extends ApplicationException {
+  RepositoryException(Exception super.exception, {super.message});
+}
+
+/// Thrown by the Service when a problem occurs.
+class ServiceException extends ApplicationException {
+  ServiceException(Exception super.exception, {super.message});
+}
+
 /// Base Result class
 /// [S] represents the type of the success value
 /// [E] should be [Exception] or a subclass of it

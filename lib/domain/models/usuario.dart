@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter_controle_enderecos/domain/models/entity.dart';
 
 class Usuario extends Entity {
-  int? id;
   String? nome;
   String? salt;
   String? password;
@@ -14,7 +13,7 @@ class Usuario extends Entity {
   String? status;
   String? telefone;
   Usuario({
-    this.id,
+    super.id,
     this.nome,
     this.salt,
     this.password,
@@ -72,7 +71,9 @@ class Usuario extends Entity {
       password: map['password'] != null ? map['password'] as String : null,
       login: map['login'] != null ? map['login'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
-      data: map['data'] != null ? DateTime.fromMillisecondsSinceEpoch(map['data'] as int) : null,
+      data: map['data'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['data'] as int)
+          : null,
       status: map['status'] != null ? map['status'] as String : null,
       telefone: map['telefone'] != null ? map['telefone'] as String : null,
     );
@@ -122,6 +123,4 @@ class Usuario extends Entity {
   @override
   fromMap(Map<String, dynamic> map) => Usuario.fromMap(map);
 
-  @override
-  get getValueId => id;
 }
