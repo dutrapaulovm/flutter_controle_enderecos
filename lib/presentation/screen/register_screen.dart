@@ -7,7 +7,7 @@ class RegisterScreen extends StatefulWidget {
   /// Callback for when this form is submitted successfully. Parameters are (email, password)
   final Function(String? email, String? password)? onSubmitted;
 
-  const RegisterScreen({this.onSubmitted, Key? key}) : super(key: key);
+  const RegisterScreen({this.onSubmitted, super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

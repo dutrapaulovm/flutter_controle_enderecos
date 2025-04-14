@@ -25,6 +25,7 @@ class Estado extends Entity {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,

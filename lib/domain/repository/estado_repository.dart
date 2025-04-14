@@ -1,4 +1,4 @@
-import 'package:flutter_controle_enderecos/domain/models/cliente.dart';
+import 'package:flutter_controle_enderecos/domain/models/estado.dart';
 import 'package:flutter_controle_enderecos/domain/repository/repository.dart';
 
 class EstadoRepository extends Repository<Estado> {

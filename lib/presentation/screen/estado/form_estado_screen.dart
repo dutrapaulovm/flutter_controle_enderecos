@@ -27,7 +27,7 @@ class _FormEstadoScreenState extends State<FormEstadoScreen> {
       child: AppForm(
         formKey: _formStatekey,
         focusNode: FocusScopeNode(),
-        children: [],
+        children: const [],
       ),
     );
   }

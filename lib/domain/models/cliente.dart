@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Estado {
+class Cliente {
   int? id;
   String? nome;
   String? email;
@@ -15,7 +15,7 @@ class Estado {
   int? idEstado;
   String? nomeEstado;
   String? uf;
-  Estado({
+  Cliente({
     this.id,
     this.nome,
     this.email,
@@ -31,7 +31,7 @@ class Estado {
     this.uf,
   });
 
-  Estado copyWith({
+  Cliente copyWith({
     int? id,
     String? nome,
     String? email,
@@ -46,7 +46,7 @@ class Estado {
     String? nomeEstado,
     String? uf,
   }) {
-    return Estado(
+    return Cliente(
       id: id ?? this.id,
       nome: nome ?? this.nome,
       email: email ?? this.email,
@@ -81,8 +81,8 @@ class Estado {
     };
   }
 
-  factory Estado.fromMap(Map<String, dynamic> map) {
-    return Estado(
+  factory Cliente.fromMap(Map<String, dynamic> map) {
+    return Cliente(
       id: map['id'] != null ? map['id'] as int : null,
       nome: map['nome'] != null ? map['nome'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
@@ -103,8 +103,8 @@ class Estado {
 
   String toJson() => json.encode(toMap());
 
-  factory Estado.fromJson(String source) =>
-      Estado.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Cliente.fromJson(String source) =>
+      Cliente.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -112,7 +112,7 @@ class Estado {
   }
 
   @override
-  bool operator ==(covariant Estado other) {
+  bool operator ==(covariant Cliente other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

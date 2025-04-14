@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/estado/form_estado_screen.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/home_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/login_screen.dart';
 
 void main() {
