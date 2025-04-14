@@ -1,4 +1,6 @@
-abstract class Repository<T> {
+import 'package:flutter_controle_enderecos/domain/models/entity.dart';
+
+abstract class Repository<T extends Entity> {
   Future<int> insert(T entity);
   Future<int> delete(T entity);
   Future<int> update(T entity);

@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Usuario {
+import 'package:flutter_controle_enderecos/domain/models/entity.dart';
+
+class Usuario extends Entity {
   int? id;
   String? nome;
   String? salt;
@@ -69,7 +71,9 @@ class Usuario {
       password: map['password'] != null ? map['password'] as String : null,
       login: map['login'] != null ? map['login'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
-      data: map['data'] != null ? DateTime.fromMillisecondsSinceEpoch(map['data'] as int) : null,
+      data: map['data'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['data'] as int)
+          : null,
       status: map['status'] != null ? map['status'] as String : null,
       telefone: map['telefone'] != null ? map['telefone'] as String : null,
     );
@@ -77,7 +81,8 @@ class Usuario {
 
   String toJson() => json.encode(toMap());
 
-  factory Usuario.fromJson(String source) => Usuario.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Usuario.fromJson(String source) =>
+      Usuario.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -87,29 +92,39 @@ class Usuario {
   @override
   bool operator ==(covariant Usuario other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.nome == nome &&
-      other.salt == salt &&
-      other.password == password &&
-      other.login == login &&
-      other.email == email &&
-      other.data == data &&
-      other.status == status &&
-      other.telefone == telefone;
+
+    return other.id == id &&
+        other.nome == nome &&
+        other.salt == salt &&
+        other.password == password &&
+        other.login == login &&
+        other.email == email &&
+        other.data == data &&
+        other.status == status &&
+        other.telefone == telefone;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      nome.hashCode ^
-      salt.hashCode ^
-      password.hashCode ^
-      login.hashCode ^
-      email.hashCode ^
-      data.hashCode ^
-      status.hashCode ^
-      telefone.hashCode;
+        nome.hashCode ^
+        salt.hashCode ^
+        password.hashCode ^
+        login.hashCode ^
+        email.hashCode ^
+        data.hashCode ^
+        status.hashCode ^
+        telefone.hashCode;
   }
+
+  @override
+  String get entityName => "usuario";
+
+  @override
+  fromMap(Map<String, dynamic> map) {
+    Usuario.fromMap(map);
+  }
+
+  @override
+  get getValueId => "id";
 }
