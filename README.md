@@ -1,87 +1,112 @@
-# 📦 Sistema de Controle de Endereços — Cronograma de Desenvolvimento
+# Sistema de Controle de Endereços
 
-Este repositório contém o desenvolvimento do sistema de controle de endereços. O cronograma está organizado em cinco iterações dentro da Release 1.
+Este repositório contém o código-fonte do projeto de Sistema de Controle de Endereços, desenvolvido com Flutter. O projeto foi estruturado em iterações ao longo do tempo, com o objetivo de entregar funcionalidades de forma incremental, utilizando boas práticas de desenvolvimento.
 
----
+## 🔄 Release 1
 
-## 🚀 Release 1
-
-### ✅ Iteração 1: Configuração Inicial e Estrutura do Projeto  
-📅 **01/03/2024 a 15/03/2024**  
+### ✅ Iteração 1: Configuração Inicial e Estrutura do Projeto
+📅 **Data:** 01/03/2024 a 15/03/2024  
 🎯 **Objetivo:** Preparar o ambiente de desenvolvimento e estabelecer a estrutura base do sistema.
 
-#### Atividades
-1. **Configuração do Ambiente:**  
-   - IDE, Git, ambientes de desenvolvimento e testes.
-2. **Criação da Estrutura do Projeto:**  
-   - Organização de pacotes, definição das camadas (modelo, controle, visualização).
-3. **Modelagem de Entidades:**  
-   - Tabelas do banco de dados e entidades principais.
-4. **Protótipo da Interface:**  
-   - Esboço inicial das telas.
-5. **Mocks:**  
-   - Desenvolvimento de objetos simulados para testes unitários, isolando dependências externas.
+#### Atividades:
+1. Configuração da IDE, do Git e dos ambientes de desenvolvimento/teste.
+2. Criação da estrutura do projeto com definição das camadas (modelo, controle, visualização).
+3. Modelagem das entidades e tabelas do banco de dados.
+4. Protótipo inicial das telas de cadastro e listagem.
+5. Desenvolvimento de objetos mocks para testes unitários.
 
 ---
 
-### 🔐 Iteração 2: Cadastro e Autenticação de Usuários  
-📅 **16/03/2024 a 30/03/2024**  
-🎯 **Objetivo:** Implementar autenticação segura de usuários.
+### 🔐 Iteração 2: Cadastro e Autenticação de Usuários
+📅 **Data:** 16/03/2024 a 30/03/2024  
+🎯 **Objetivo:** Permitir o acesso seguro ao sistema por meio de autenticação de usuários.
 
-#### Atividades
-1. Tela de login com validação de credenciais  
-2. Criptografia de senhas  
-3. Controle de sessão  
-4. Estrutura para controle de permissões futuras
-
----
-
-### 🧾 Iteração 3: Funcionalidades de Cadastro e Listagem  
-📅 **31/03/2024 a 14/04/2024**  
-🎯 **Objetivo:** Implementar cadastros e visualização de endereços e clientes.
-
-#### Atividades
-1. Formulário de cadastro de endereços  
-2. Formulário de cadastro de clientes  
-3. Armazenamento dos dados em lista  
-4. Listagem de endereços em tabela  
-5. Validações nos campos obrigatórios
+#### Atividades:
+1. Criação da tela de login com validação de credenciais.
+2. Criptografia das senhas armazenadas.
+3. Implementação do controle de sessão para manter usuários autenticados.
+4. Estruturação inicial para controle de permissões por tipo de usuário.
 
 ---
 
-### 🛠 Iteração 4: Edição e Exclusão de Endereços  
-📅 **15/04/2024 a 30/04/2024**  
-🎯 **Objetivo:** Permitir modificação e remoção de dados, com melhor experiência ao usuário.
+### 📋 Iteração 3: Funcionalidades de Cadastro e Listagem
+📅 **Data:** 31/03/2024 a 14/04/2024  
+🎯 **Objetivo:** Permitir o cadastro e a visualização de endereços e clientes.
 
-#### Atividades
-1. Edição de endereços  
-2. Exclusão de endereços com confirmação  
-3. Mensagens de sucesso/erro  
-4. Refinamento da interface
-
----
-
-### 🧪 Iteração 5: Testes Finais e Preparação para Lançamento  
-📅 **01/05/2024 a 15/05/2024**  
-🎯 **Objetivo:** Realizar testes finais e preparar o sistema para o lançamento.
-
-#### Atividades
-1. Testes de integração e aceitação  
-2. Correção de bugs  
-3. Documentação do usuário  
-4. Preparação do ambiente de produção
+#### Atividades:
+1. Implementação do formulário de cadastro de endereços.
+2. Implementação do formulário de cadastro de clientes.
+3. Estrutura interna para armazenamento (lista).
+4. Funcionalidade para listagem de endereços em tabela.
+5. Validação dos campos obrigatórios.
 
 ---
 
-## 📅 Visão Geral do Cronograma
+### ✏️ Iteração 4: Edição e Exclusão de Endereços
+📅 **Data:** 15/04/2024 a 30/04/2024  
+🎯 **Objetivo:** Adicionar suporte à edição e remoção de endereços cadastrados.
 
-```mermaid
-gantt
-    title Cronograma de Desenvolvimento — Release 1
-    dateFormat  YYYY-MM-DD
-    section Iterações
-    Iteração 1: Configuração Inicial        :a1, 2024-03-01, 15d
-    Iteração 2: Cadastro e Autenticação     :a2, 2024-03-16, 15d
-    Iteração 3: Cadastro e Listagem         :a3, 2024-03-31, 15d
-    Iteração 4: Edição e Exclusão           :a4, 2024-04-15, 15d
-    Iteração 5: Testes Finais               :a5, 2024-05-01, 15d
+#### Atividades:
+1. Funcionalidade de edição de dados com carregamento do endereço selecionado.
+2. Exclusão com confirmação do usuário.
+3. Feedback visual (mensagens de sucesso e erro).
+4. Melhorias na interface e experiência do usuário.
+
+---
+
+### 🚀 Iteração 5: Testes Finais e Preparação para Lançamento
+📅 **Data:** 01/05/2024 a 15/05/2024  
+🎯 **Objetivo:** Garantir a qualidade do sistema e finalizar para entrega.
+
+#### Atividades:
+1. Execução de testes de integração e aceitação.
+2. Correção de bugs identificados.
+3. Criação de documentação básica para o usuário.
+4. Preparação do ambiente de produção e revisão final do sistema.
+
+---
+
+## 📦 Pacotes Utilizados
+
+O projeto utiliza os seguintes pacotes Flutter:
+
+- [`http`](https://pub.dev/packages/http): Utilizado para realizar requisições HTTP ao backend ou serviços externos.  
+  ```bash
+  flutter pub add http
+  ```
+
+- [`sqflite`](https://pub.dev/packages/sqflite): Biblioteca para armazenamento local utilizando SQLite em dispositivos móveis.  
+  ```bash
+  flutter pub add sqflite
+  ```
+
+- [`sqflite_common_ffi`](https://pub.dev/packages/sqflite_common_ffi): Permite o uso de SQLite em desktops (Windows, macOS, Linux), tornando o desenvolvimento multiplataforma mais viável.  
+  ```bash
+  flutter pub add sqflite_common_ffi
+  ```
+
+---
+
+## 📁 Estrutura de Pastas
+
+```bash
+lib/
+├── main.dart
+├── models/        # Classes de modelo (Cliente, Endereço, etc.)
+├── controllers/   # Controladores responsáveis pela lógica de negócio
+├── views/         # Interfaces gráficas (telas)
+├── services/      # Serviços auxiliares (ex: autenticação, banco de dados)
+└── mocks/         # Objetos simulados para testes
+```
+
+---
+
+## 🧪 Testes
+
+Os testes são executados com mocks para isolar as dependências externas, permitindo validar o comportamento de cada componente de forma unitária.
+
+---
+
+## 📝 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
