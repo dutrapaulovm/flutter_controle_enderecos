@@ -1,124 +1,63 @@
-# Sistema de Controle de Endereços
+# Flutter Controle de Endereços - Iteração 02
 
-Este repositório contém o código-fonte do projeto de Sistema de Controle de Endereços, desenvolvido com Flutter. O projeto foi estruturado em iterações ao longo do tempo, com o objetivo de entregar funcionalidades de forma incremental, utilizando boas práticas de desenvolvimento.
+Este projeto é parte de um sistema para controle de endereços, desenvolvido utilizando o framework Flutter. O objetivo é fornecer uma base sólida para gerenciamento de usuários, sessões e segurança através da arquitetura em camadas e boas práticas de desenvolvimento.
 
-## 🔄 Release 1
+## 📌 Iteração 02 - Funcionalidades Implementadas
 
-### ✅ Iteração 1: Configuração Inicial e Estrutura do Projeto
+Na **Iteração 02**, foram implementadas as seguintes funcionalidades:
 
-📅 **Data:** 01/03/2024 a 15/03/2024  
-🎯 **Objetivo:** Preparar o ambiente de desenvolvimento e estabelecer a estrutura base do sistema.
+- ✅ **Criação da tela de login com validação de credenciais**
 
-#### Atividades:
+  - Interface para entrada de login e senha.
+  - Validação dos campos com feedback ao usuário.
+  - Autenticação com base nos dados armazenados localmente.
 
-1. Configuração da IDE, do Git e dos ambientes de desenvolvimento/teste.
-2. Criação da estrutura do projeto com definição das camadas (modelo, controle, visualização).
-3. Modelagem das entidades e tabelas do banco de dados.
-4. Protótipo inicial das telas de cadastro e listagem.
-5. Desenvolvimento de objetos mocks para testes unitários.
+- ✅ **Criptografia das senhas armazenadas**
 
----
+  - As senhas dos usuários são criptografadas antes de serem salvas no banco de dados.
+  - A autenticação compara os hashes para garantir a segurança.
 
-### 🔐 Iteração 2: Cadastro e Autenticação de Usuários
+- ✅ **Implementação do controle de sessão**
 
-📅 **Data:** 16/03/2024 a 30/03/2024  
-🎯 **Objetivo:** Permitir o acesso seguro ao sistema por meio de autenticação de usuários.
+  - Sessão de usuário ativa após login bem-sucedido.
+  - Armazenamento de token/sessão no dispositivo.
+  - Logout limpa os dados da sessão.
 
-#### Atividades:
+- ✅ **Estruturação inicial para controle de permissões por tipo de usuário**
+  - Diferenciação de acesso com base em perfis de usuário (ex: admin, usuário comum).
+  - Base para limitar funcionalidades conforme permissões.
 
-1. Criação da tela de login com validação de credenciais.
-2. Criptografia das senhas armazenadas.
-3. Implementação do controle de sessão para manter usuários autenticados.
-4. Estruturação inicial para controle de permissões por tipo de usuário.
+## 🗂️ Estrutura das Pastas (Atualizada)
 
----
-
-### 📋 Iteração 3: Funcionalidades de Cadastro e Listagem
-
-📅 **Data:** 31/03/2024 a 14/04/2024  
-🎯 **Objetivo:** Permitir o cadastro e a visualização de endereços e clientes.
-
-#### Atividades:
-
-1. Implementação do formulário de cadastro de endereços.
-2. Implementação do formulário de cadastro de clientes.
-3. Estrutura interna para armazenamento (lista).
-4. Funcionalidade para listagem de endereços em tabela.
-5. Validação dos campos obrigatórios.
-
----
-
-### ✏️ Iteração 4: Edição e Exclusão de Endereços
-
-📅 **Data:** 15/04/2024 a 30/04/2024  
-🎯 **Objetivo:** Adicionar suporte à edição e remoção de endereços cadastrados.
-
-#### Atividades:
-
-1. Funcionalidade de edição de dados com carregamento do endereço selecionado.
-2. Exclusão com confirmação do usuário.
-3. Feedback visual (mensagens de sucesso e erro).
-4. Melhorias na interface e experiência do usuário.
-
----
-
-### 🚀 Iteração 5: Testes Finais e Preparação para Lançamento
-
-📅 **Data:** 01/05/2024 a 15/05/2024  
-🎯 **Objetivo:** Garantir a qualidade do sistema e finalizar para entrega.
-
-#### Atividades:
-
-1. Execução de testes de integração e aceitação.
-2. Correção de bugs identificados.
-3. Criação de documentação básica para o usuário.
-4. Preparação do ambiente de produção e revisão final do sistema.
-
----
-
-## 📦 Pacotes Utilizados
-
-O projeto utiliza os seguintes pacotes Flutter:
-
-- [`http`](https://pub.dev/packages/http): Utilizado para realizar requisições HTTP ao backend ou serviços externos.
-
-  ```bash
-  flutter pub add http
-  ```
-
-- [`sqflite`](https://pub.dev/packages/sqflite): Biblioteca para armazenamento local utilizando SQLite em dispositivos móveis.
-
-  ```bash
-  flutter pub add sqflite
-  ```
-
-- [`sqflite_common_ffi`](https://pub.dev/packages/sqflite_common_ffi): Permite o uso de SQLite em desktops (Windows, macOS, Linux), tornando o desenvolvimento multiplataforma mais viável.
-  ```bash
-  flutter pub add sqflite_common_ffi
-  ```
-
----
-
-## 📁 Estrutura de Pastas
-
-```bash
+```
 lib/
-├── main.dart
-├── models/        # Classes de modelo (Cliente, Endereço, etc.)
-├── controllers/   # Controladores responsáveis pela lógica de negócio
-├── views/         # Interfaces gráficas (telas)
-├── services/      # Serviços auxiliares (ex: autenticação, banco de dados)
-└── mocks/         # Objetos simulados para testes
+├── controller/          # Lógica de controle e intermediação entre camadas
+├── domain/              # Modelos, entidades e contratos de repositórios
+├── infra/               # Implementações concretas (ex: repositórios, serviços)
+├── presentation/        # Telas e widgets da interface do usuário
+├── service/             # Regras de negócio e validações
+├── utils/               # Funções utilitárias e constantes
+├── view_model/          # Lógica das telas separada da interface
 ```
 
+## 🚀 Tecnologias Utilizadas
+
+- Flutter 3.x
+- Dart
+- SQLite (armazenamento local)
+- SharedPreferences (sessão)
+- Hashing (criptografia de senhas)
+
+## 💡 Próximos Passos
+
+- Implementar controle completo de permissões por tela e funcionalidade.
+- Integração com backend remoto para autenticação.
+- Cadastro de novos usuários.
+
+## 👨‍💻 Autor
+
+Paulo Dutra - [GitHub](https://github.com/dutrapaulovm)
+
 ---
 
-## 🧪 Testes
-
-Os testes são executados com mocks para isolar as dependências externas, permitindo validar o comportamento de cada componente de forma unitária.
-
----
-
-## 📝 Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto segue a abordagem de arquitetura limpa e visa manter uma base modular, reutilizável e escalável.
