@@ -3,7 +3,8 @@ import 'package:flutter_controle_enderecos/utils/utils.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
-  
+  static const String routeName = "/register_user_screen";
+
   /// Callback for when this form is submitted successfully. Parameters are (email, password)
   final Function(String? email, String? password)? onSubmitted;
 

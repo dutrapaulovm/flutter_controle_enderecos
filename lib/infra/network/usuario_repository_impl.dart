@@ -22,6 +22,6 @@ class UsuarioRepositoryImpl extends UsuarioRepository {
   Future<List<Usuario>> findAll(Usuario entity) => _dataSource.findAll(entity);
 
   @override
-  Future<Usuario?> buscarPorLoginSenha(String login, String senha) =>
-      _dataSource.buscarPorLoginSenha(login, senha);
+  Future<Usuario?> login(String login, String senha) =>
+      _dataSource.login(login, senha);
 }

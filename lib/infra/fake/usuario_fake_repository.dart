@@ -10,7 +10,7 @@ class UsuarioFakeRepository extends UsuarioRepository {
 
   @override
   Future<int> insert(Usuario entity) async {
-    await Future.delayed(const Duration(milliseconds: 500)); // simula latência
+    await Future.delayed(const Duration(milliseconds: 500)); // Simula latência
     final novo = entity.copyWith(id: _idCounter++);
     _usuarios.add(novo);
     return novo.id;
@@ -48,8 +48,21 @@ class UsuarioFakeRepository extends UsuarioRepository {
   }
 
   @override
-  Future<Usuario?> buscarPorLoginSenha(String login, String senha) {
-    // TODO: implement buscarPorLoginSenha
-    throw UnimplementedError();
+  Future<Usuario?> login(String login, String senha) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    // Buscando o usuário
+    var user = _usuarios.firstWhere(
+      (u) => u.login == login && u.password == senha,
+      orElse: () =>
+          Usuario(id: -1), // Retorna um usuário de id -1 se não encontrar
+    );
+
+    // Verificando se o usuário foi encontrado
+    if (user.id == -1) {
+      return null; // Caso não encontre o usuário, retorna null
+    }
+
+    return user; // Retorna o usuário encontrado
   }
 }

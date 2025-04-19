@@ -1,29 +1,54 @@
-import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
-import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.dart';
-import 'package:flutter_controle_enderecos/service_locator.dart';
-import 'package:flutter_controle_enderecos/view_model/login_view_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_controle_enderecos/infra/result_application.dart';
+import 'package:flutter_controle_enderecos/service/login_service.dart';
+import 'package:flutter_controle_enderecos/utils/utils.dart';
 
 class LoginController {
-  final UsuarioRepository _repository =
-      ServiceLocator.instance.getService("Usuario") as UsuarioRepository;
+  final TextEditingController loginController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final LoginService _loginService = LoginService();
 
   // Método para realizar o login
-  Future<Usuario> login(LoginViewModel usuarioViewModel) async {
-    final Usuario? usuario;
+  Future<ResultApplication> login() async {
+    final resultApplication = await _loginService.login(
+      loginController.text,
+      passwordController.text,
+    );
 
-    // Aqui você pode adicionar qualquer regra de negócio, como validação de formato de email
-    if (usuarioViewModel.login!.text.isEmpty ||
-        usuarioViewModel.password!.text.isEmpty) {
-      throw Exception("Email e senha são obrigatórios.");
+    return resultApplication;
+  }
+
+  String? passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Campo obrigatório.';
     }
 
-    // Simulação de login. Aqui você chamaria a API para autenticar
-    usuario = await _repository.buscarPorLoginSenha(
-        usuarioViewModel.login!.text, usuarioViewModel.password!.text!);
+    return null;
+  }
 
-    if (usuario == null) throw Exception("Credenciais inválidas.");
+  String? loginValidator(String? value) {
+    if (value == null || value.isEmpty) return 'Campo obrigatório.';
+    if (!isValidLogin(value)) return 'Nome de usuário inválido!';
+    return null;
+  }
 
-    // Se a autenticação for bem-sucedida, retornamos o usuário
-    return usuario;
+  bool validate() {
+    return validLogin() && validPassword();
+  }
+
+  bool validLogin() {
+    final text = loginController.text;
+    return text.isNotEmpty;
+  }
+
+  bool validPassword() {
+    final text = passwordController.text;
+    return text.isNotEmpty;
+  }
+
+  void reset() {
+    loginController.clear();
+    passwordController.clear();
   }
 }
