@@ -13,10 +13,9 @@ lib/
 ├── domain/
 │   ├── models/          # Entidades de domínio (ex: Usuario)
 │   └── repositories/    # Interfaces dos repositórios (IRepository<T>)
-├── infra/
-│   └── repositories/    # Implementações concretas dos repositórios (Fake, Local, HTTP)
-├── shared/
-│   └── result_application.dart  # Classe padrão de retorno
+└── infra/
+    └── repositories/    # Implementações concretas dos repositórios (Fake, Local, HTTP)
+    └── result_application.dart  # Classe padrão de retorno
 ```
 
 ---
