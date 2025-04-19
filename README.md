@@ -1,6 +1,6 @@
-# 📦 Flutter Controle de Endereços (Protótipo)
+# 📦 Flutter Controle de Endereços (Iteração 01)
 
-Este repositório representa o **protótipo inicial** do sistema "Flutter Controle de Endereços", desenvolvido utilizando **Flutter** com base em uma arquitetura de camadas para promover separação de responsabilidades, escalabilidade e manutenibilidade.
+Este repositório representa a **iteração 01** do sistema "Flutter Controle de Endereços", desenvolvido utilizando **Flutter** com base em uma arquitetura de camadas para promover separação de responsabilidades, escalabilidade e manutenibilidade.
 
 ## 🎯 Objetivo
 
