@@ -50,7 +50,7 @@ class EstadoFakeDataSource {
     var index = _estados.indexWhere((e) => e.id == estado.id);
     if (index != -1) {
       _estados[index] = estado;
-      return estado.id ?? 0;
+      return estado.id;
     }
     return 0;
   }
@@ -59,7 +59,7 @@ class EstadoFakeDataSource {
     var index = _estados.indexWhere((e) => e.id == estado.id);
     if (index != -1) {
       _estados.removeAt(index);
-      return estado.id ?? 0;
+      return estado.id;
     }
     return 0;
   }

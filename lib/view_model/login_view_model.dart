@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class LoginViewModel {
-  String? login;
-  String? password;
+  TextEditingController? login;
+  TextEditingController? password;
   LoginViewModel({
     this.login,
     this.password,
@@ -13,28 +15,28 @@ class LoginViewModel {
       return false;
     }
 
-    if (login!.isEmpty || password!.isEmpty) {
+    if (login!.text.isEmpty || password!.text.isEmpty) {
       return false;
     }
     return true;
   }
 
   void reset() {
-    login = '';
-    password = '';
+    login!.text = '';
+    password!.text = '';
   }
 
   bool validLogin() {
-    return (login != null && login!.isNotEmpty);
+    return (login!.text != null && login!.text.isNotEmpty);
   }
 
   bool validPassword() {
-    return (password != null && password!.isNotEmpty);
+    return (password!.text != null && password!.text.isNotEmpty);
   }
 
   LoginViewModel copyWith({
-    String? login,
-    String? password,
+    TextEditingController? login,
+    TextEditingController? password,
   }) {
     return LoginViewModel(
       login: login ?? this.login,
@@ -44,15 +46,18 @@ class LoginViewModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'login': login,
-      'password': password,
+      'login': login!.text,
+      'password': password!.text,
     };
   }
 
   factory LoginViewModel.fromMap(Map<String, dynamic> map) {
     return LoginViewModel(
-      login: map['login'] != null ? map['login'] as String : null,
-      password: map['password'] != null ? map['password'] as String : null,
+      login:
+          map['login'] != null ? map['login'] as TextEditingController : null,
+      password: map['password'] != null
+          ? map['password'] as TextEditingController
+          : null,
     );
   }
 

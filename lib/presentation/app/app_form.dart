@@ -17,7 +17,9 @@ class AppForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FocusScope(
-        node: focusNode, child: Form(key: formKey, child: _formBody()));
+        node: focusNode,
+        child: SingleChildScrollView(
+            child: Form(key: formKey, child: _formBody())));
   }
 
   Widget _formBody() {

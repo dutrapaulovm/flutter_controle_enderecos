@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_controle_enderecos/controller/login_controller.dart';
+import 'package:flutter_controle_enderecos/presentation/app/app_form.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/register_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 import 'package:flutter_controle_enderecos/utils/utils.dart';
@@ -15,14 +16,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
   //Armazena os valores digitos pelos usuários em cada campo
-  late LoginViewModel viewModel = LoginViewModel();
+  late LoginViewModel viewModel = LoginViewModel(
+      password: TextEditingController(), login: TextEditingController());
   LoginController loginController = LoginController();
 
   //Armazena as mensagens de erro dos campos
   String? emailError, passwordError;
-
-  //Auxilia na configuração do CircularProgressIndicator
-  late AnimationController animationController;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -141,10 +140,10 @@ class _LoginScreenState extends State<LoginScreen>
       return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SafeArea(
-              child: SingleChildScrollView(
-                  child: Form(
-                      key: formKey,
-                      child: createListView(screenHeight, context)))));
+              child: AppForm(
+                  focusNode: FocusScopeNode(),
+                  formKey: formKey,
+                  child: createListView(screenHeight, context))));
     } else {
       return const Padding(
           padding: EdgeInsets.all(20.0),
@@ -227,11 +226,7 @@ class _LoginScreenState extends State<LoginScreen>
   ///Cria um campo para o usuário digitar a senha
   InputFormField builderInputFieldSenha() {
     return InputFormField(
-      onChanged: (value) {
-        setState(() {
-          viewModel.password = value;
-        });
-      },
+      controller: viewModel.password,
       validator: senhaValidator,
       labelText: 'Senha',
       errorText: passwordError,
@@ -243,11 +238,7 @@ class _LoginScreenState extends State<LoginScreen>
   //Cria um campo para usuário digitar o nome do usuário ou email
   InputFormField builderInputFieldUsuario() {
     return InputFormField(
-      onChanged: (value) {
-        setState(() {
-          viewModel.login = value;
-        });
-      },
+      controller: viewModel.login,
       validator: loginValidator,
       labelText: 'Email ou Usuário',
       errorText: emailError,

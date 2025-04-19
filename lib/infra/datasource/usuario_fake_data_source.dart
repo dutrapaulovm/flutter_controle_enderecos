@@ -1,24 +1,30 @@
 import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
+import 'package:flutter_controle_enderecos/domain/repository/repository.dart';
+import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.dart';
+import 'package:flutter_controle_enderecos/domain/repository/usuario_repository_impl.dart';
 
-class UsuarioFakeDataSource {
+class UsuarioFakeDataSource extends UsuarioRepository {
   final List<Usuario> _usuarios = usuariosFake;
   int _nextId = 1;
 
-  Future<int> insert(Usuario usuario) async {
-    final novoUsuario = usuario.copyWith(id: _nextId++);
+  @override
+  Future<int> insert(Usuario entity) async {
+    final novoUsuario = entity.copyWith(id: _nextId++);
     _usuarios.add(novoUsuario);
     return novoUsuario.id!;
   }
 
-  Future<int> update(Usuario usuario) async {
-    final index = _usuarios.indexWhere((u) => u.id == usuario.id);
+  @override
+  Future<int> update(Usuario entity) async {
+    final index = _usuarios.indexWhere((u) => u.id == entity.id);
     if (index == -1) return 0;
-    _usuarios[index] = usuario;
+    _usuarios[index] = entity;
     return 1;
   }
 
-  Future<int> delete(int id) async {
-    final index = _usuarios.indexWhere((u) => u.id == id);
+  @override
+  Future<int> delete(Usuario entity) async {
+    final index = _usuarios.indexWhere((u) => u.id == entity.id);
     if (index != -1) {
       _usuarios.removeAt(index);
       return 1;
@@ -26,15 +32,25 @@ class UsuarioFakeDataSource {
     return 0;
   }
 
-  Future<Usuario?> findById(int id) async {
+  @override
+  Future<Usuario?> findById(Usuario entity) async {
     return _usuarios.firstWhere(
-      (u) => u.id == id,
+      (u) => u.id == entity.id,
       orElse: () => Usuario(),
     );
   }
 
-  Future<List<Usuario>> findAll() async {
+  @override
+  Future<List<Usuario>> findAll(Usuario entity) async {
     return List.unmodifiable(_usuarios);
+  }
+
+  @override
+  Future<Usuario?> buscarPorLoginSenha(String login, String senha) async {
+    return usuariosFake.firstWhere(
+      (u) => u.login == login && u.password == senha,
+      orElse: () => Usuario(),
+    );
   }
 }
 
