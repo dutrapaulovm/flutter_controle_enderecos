@@ -1,11 +1,11 @@
 import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
-import 'package:flutter_controle_enderecos/domain/repository/usuario_repository_impl.dart';
-import 'package:flutter_controle_enderecos/infra/datasource/usuario_fake_data_source.dart';
+import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.dart';
+import 'package:flutter_controle_enderecos/service_locator.dart';
 import 'package:flutter_controle_enderecos/view_model/login_view_model.dart';
 
 class LoginController {
-  final UsuarioRepositoryImpl _repository =
-      UsuarioRepositoryImpl(UsuarioFakeDataSource());
+  final UsuarioRepository _repository =
+      ServiceLocator.instance.getService("Usuario") as UsuarioRepository;
 
   // Método para realizar o login
   Future<Usuario> login(LoginViewModel usuarioViewModel) async {

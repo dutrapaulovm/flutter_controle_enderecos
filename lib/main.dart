@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/login_screen.dart';
+import 'package:flutter_controle_enderecos/service_locator.dart';
 
 void main() {
+  init();
   runApp(const MainApp());
 }
 

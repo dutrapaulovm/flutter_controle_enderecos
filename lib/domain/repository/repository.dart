@@ -1,4 +1,4 @@
-abstract class Repository<T> {
+abstract class IRepository<T> {
   Future<int> insert(T entity);
   Future<int> delete(T entity);
   Future<int> update(T entity);

@@ -1,3 +1,6 @@
+import 'package:flutter_controle_enderecos/infra/fake/usuario_fake_repository.dart';
+import 'package:flutter_controle_enderecos/infra/network/usuario_repository_impl.dart';
+
 /// A classe `ServiceLocator` fornece um mecanismo centralizado para
 ///  registrar e recuperar serviços em uma aplicação.
 ///
@@ -22,6 +25,15 @@
 /// recuperamos esse serviço usando `getService`. Finalmente,
 /// utilizamos o serviço obtido para fazer um log de uma mensagem.
 class ServiceLocator {
+  // Instância única da classe (privada).
+  static final ServiceLocator _instance = ServiceLocator._internal();
+
+  // Construtor privado para impedir múltiplas instâncias.
+  ServiceLocator._internal();
+
+  // Getter público para acessar a instância única.
+  static ServiceLocator get instance => _instance;
+
   /// Um mapa que mantém os serviços registrados, onde a chave é uma
   /// String representando o nome do serviço e o valor é o próprio serviço.
   final Map<String, dynamic> _services = {};
@@ -42,4 +54,9 @@ class ServiceLocator {
   dynamic getService(String key) {
     return _services[key];
   }
+}
+
+void init() {
+  ServiceLocator.instance.registerService(
+      'Usuario', UsuarioRepositoryImpl(UsuarioFakeRepository()));
 }
