@@ -109,15 +109,9 @@ if (result.success) {
 
 ---
 
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Abra uma issue com sugestões, correções ou melhorias. Durante a fase de prototipagem, todo feedback é essencial.
-
----
-
 ## 👨‍💻 Autor
 
-Desenvolvido com ❤️ por [Paulo Dutra](https://github.com/dutrapaulovm)
+Desenvolvido por [Paulo Dutra](https://github.com/dutrapaulovm)
 
 ---
 
