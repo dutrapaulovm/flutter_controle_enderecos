@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/estado/form_estado_screen.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/home_screen.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/login_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +9,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: LoginScreen());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Title'),
+          ),
+          body: Container(),
+        ));
   }
 }
