@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/infra/result_application.dart';
+import 'package:flutter_controle_enderecos/infra/result_data.dart';
 import 'package:flutter_controle_enderecos/service/login_service.dart';
 import 'package:flutter_controle_enderecos/utils/utils.dart';
 
@@ -10,7 +10,7 @@ class LoginController {
   final LoginService _loginService = LoginService();
 
   // Método para realizar o login
-  Future<ResultApplication> login() async {
+  Future<ResultData> login() async {
     final resultApplication = await _loginService.login(
       loginController.text,
       passwordController.text,

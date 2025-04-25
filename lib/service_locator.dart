@@ -1,5 +1,5 @@
-import 'package:flutter_controle_enderecos/infra/fake/usuario_fake_repository.dart';
-import 'package:flutter_controle_enderecos/infra/network/usuario_repository_impl.dart';
+import 'package:flutter_controle_enderecos/infra/api/api_usuario_repository.dart';
+import 'package:flutter_controle_enderecos/infra/fake/fake_usuario_repository.dart';
 
 /// A classe `ServiceLocator` fornece um mecanismo centralizado para
 ///  registrar e recuperar serviços em uma aplicação.
@@ -56,7 +56,61 @@ class ServiceLocator {
   }
 }
 
-void init() {
-  ServiceLocator.instance.registerService(
-      'Usuario', UsuarioRepositoryImpl(UsuarioFakeRepository()));
+/// Contém as chaves usadas para registrar e recuperar serviços no `ServiceLocator`.
+class ServiceKeys {
+  /// Chave de identificação para o serviço relacionado ao repositório de usuários.
+  static const usuario = 'Usuario';
+}
+
+/// Enum que define os modos disponíveis para configuração de repositórios.
+enum RepositoryMode {
+  /// Utiliza repositórios fake/mock, geralmente usados para testes ou desenvolvimento inicial.
+  fake,
+
+  /// Utiliza repositórios que fazem chamadas para uma API real.
+  api,
+
+  /// Utiliza repositórios locais, como armazenamento SQLite ou arquivos.
+  local,
+}
+
+/// Inicializa os repositórios usando uma implementação que consome uma API real.
+///
+/// Registra os repositórios necessários no `ServiceLocator` usando o modo de produção.
+void initApiRepositories() {
+  ServiceLocator.instance
+      .registerService(ServiceKeys.usuario, ApiUsuarioRepository());
+}
+
+/// Inicializa os repositórios fake (mocks) para simulação ou testes.
+///
+/// Ideal para uso em ambientes de desenvolvimento ou durante testes unitários.
+void initFakeRepositories() {
+  ServiceLocator.instance
+      .registerService(ServiceKeys.usuario, FakeUsuarioRepository());
+}
+
+/// Inicializa os repositórios com base no modo especificado.
+///
+/// Permite configurar o ambiente de execução para usar diferentes
+/// tipos de repositórios (fake, api, local).
+///
+/// Exemplo de uso:
+/// ```dart
+/// initRepositories(mode: RepositoryMode.fake);
+/// ```
+///
+/// [mode] O tipo de repositório a ser utilizado.
+void initRepositories({required RepositoryMode mode}) {
+  switch (mode) {
+    case RepositoryMode.fake:
+      initFakeRepositories();
+      return;
+    case RepositoryMode.api:
+      // No futuro, chamar initApiRepositories();
+      return;
+    case RepositoryMode.local:
+      // No futuro, implementar initLocalRepositories();
+      return;
+  }
 }

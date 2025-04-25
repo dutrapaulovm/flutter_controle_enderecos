@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 /// Classe utilizada como padrão de resposta para requisições no formato Json.
-class ResultApplication<T> {
+class ResultData<T> {
   /// Flag que define se houve sucesso no resultado.
   bool? success = false;
 
@@ -19,7 +19,7 @@ class ResultApplication<T> {
   /// Dados que serão retornados pelo resultado.
   T? data;
 
-  ResultApplication({
+  ResultData({
     this.success = false,
     this.message = '',
     this.errors = '',
@@ -27,7 +27,7 @@ class ResultApplication<T> {
     this.data,
   });
 
-  ResultApplication copyWith({
+  ResultData copyWith({
     bool? success,
     String? message,
     String? token,
@@ -35,7 +35,7 @@ class ResultApplication<T> {
     String? status,
     dynamic data,
   }) {
-    return ResultApplication(
+    return ResultData(
       success: success ?? this.success,
       message: message ?? this.message,
       errors: errors ?? this.errors,
@@ -54,8 +54,8 @@ class ResultApplication<T> {
     };
   }
 
-  factory ResultApplication.fromMap(Map<String, dynamic> map) {
-    return ResultApplication(
+  factory ResultData.fromMap(Map<String, dynamic> map) {
+    return ResultData(
       success: map['success'] != null ? map['success'] as bool : null,
       message: map['message'] != null ? map['message'] as String : null,
       errors: map['errors'] != null ? map['errors'] as dynamic : null,
@@ -66,16 +66,16 @@ class ResultApplication<T> {
 
   String toJson() => json.encode(toMap());
 
-  factory ResultApplication.fromJson(String source) =>
-      ResultApplication.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ResultData.fromJson(String source) =>
+      ResultData.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'ResultApplication(success: $success, message: $message, errors: $errors, status: $status, data: $data)';
+    return 'ResultData(success: $success, message: $message, errors: $errors, status: $status, data: $data)';
   }
 
   @override
-  bool operator ==(covariant ResultApplication other) {
+  bool operator ==(covariant ResultData other) {
     if (identical(this, other)) return true;
 
     return other.success == success &&

@@ -23,7 +23,7 @@ class Usuario extends Entity {
     this.status,
     this.telefone,
   });
-
+  
   Usuario copyWith({
     int? id,
     String? nome,

@@ -12,11 +12,14 @@ class InputFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? errorText;
   final String? hintText;
+  final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  TextCapitalization textCapitalization = TextCapitalization.none;
+  final int? maxLength;
   final bool autoFocus;
   final bool obscureText;
-  const InputFormField(
+  InputFormField(
       {this.labelText,
       this.forceErrorText,
       this.controller,
@@ -29,6 +32,9 @@ class InputFormField extends StatelessWidget {
       this.textInputAction,
       this.autoFocus = false,
       this.obscureText = false,
+      this.suffixIcon,
+      this.textCapitalization = TextCapitalization.none,
+      this.maxLength,
       super.key});
 
   @override
@@ -43,7 +49,10 @@ class InputFormField extends StatelessWidget {
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       obscureText: obscureText,
+      textCapitalization: textCapitalization,
+      maxLength: maxLength,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         labelText: labelText,
         errorText: errorText,
         hintText: hintText,

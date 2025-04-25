@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/home_screen.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/login/login_screen.dart';
+import 'package:flutter_controle_enderecos/presentation/screen/screens.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
 
 void main() {
-  init();
+  initRepositories(mode: RepositoryMode.fake);
   runApp(const MainApp());
 }
 
