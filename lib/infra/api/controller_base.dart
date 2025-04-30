@@ -1,7 +1,7 @@
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
 import 'package:http/http.dart' as http;
 
-abstract class HttpClient {
+abstract class IHttpClient {
   Future<ResultData> post(String method, String bodyJson);
 
   Future<ResultData> delete(String method, {Object? body});
@@ -13,7 +13,7 @@ abstract class HttpClient {
 
 enum HttpVerbs { post, get, delete, put }
 
-class ControllerBase extends HttpClient {
+class ControllerBase implements IHttpClient {
   final String urlbase = "localhost:8080";
 
   Future<ResultData> httpMethod(String method, HttpVerbs httpMethod,

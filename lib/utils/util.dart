@@ -1,4 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter_controle_enderecos/exceptions.dart';
+
+bool isMobile() {
+  return Platform.isAndroid || Platform.isFuchsia || Platform.isIOS;
+}
+
+bool isDesktop() {
+  return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+}
 
 ///Método utilizado para validar se o valor é vazio ou nulo para os widgets TextFormField
 String? validar(String? value, String info) {

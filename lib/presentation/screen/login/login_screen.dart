@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/controller/login_controller.dart';
+import 'package:flutter_controle_enderecos/controller/user_controller.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/home/home_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/login/login_form_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String routeName = '/';
+
   const LoginScreen({super.key});
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -11,11 +13,18 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
-  LoginController loginController = LoginController();
+  UserController loginController = UserController();
 
   bool isLoading = false;
   void submit() async {
+    Navigator.pop(context);
     Navigator.pushNamed(context, HomeScreen.routeName);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loginController.init();
   }
 
   @override

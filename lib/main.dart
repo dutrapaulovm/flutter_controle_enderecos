@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/screens.dart';
+import 'package:flutter_controle_enderecos/routes.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
 
 void main() {
@@ -15,8 +15,3 @@ class MainApp extends StatelessWidget {
     return MaterialApp(routes: routes, debugShowCheckedModeBanner: false);
   }
 }
-
-var routes = {
-  HomeScreen.routeName: (context) => const HomeScreen(),
-  "/": (context) => const LoginScreen()
-};

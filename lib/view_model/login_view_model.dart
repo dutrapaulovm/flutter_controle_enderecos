@@ -1,76 +1,80 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'package:flutter/material.dart';
 
 class LoginViewModel {
-  String? login;
-  String? password;
-  LoginViewModel({
-    this.login,
-    this.password,
-  });
-  bool validate() {
-    if (login == null || password == null) {
-      return false;
-    }
+  final TextEditingController loginController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-    if (login!.isEmpty || password!.isEmpty) {
+  LoginViewModel();
+
+  bool validate() {
+    if (loginController.text.isEmpty || passwordController.text.isEmpty) {
       return false;
     }
     return true;
   }
 
   void reset() {
-    login = '';
-    password = '';
+    loginController.text = "usuario1";
+    passwordController.text = "usuario1";
+    //loginController.clear();
+    //passwordController.clear();
   }
 
   bool validLogin() {
-    return (login != null && login!.isNotEmpty);
+    return loginController.text.isNotEmpty;
   }
 
   bool validPassword() {
-    return (password != null && password!.isNotEmpty);
+    return passwordController.text.isNotEmpty;
   }
 
   LoginViewModel copyWith({
     String? login,
     String? password,
   }) {
-    return LoginViewModel(
-      login: login ?? this.login,
-      password: password ?? this.password,
-    );
+    final newModel = LoginViewModel();
+    newModel.loginController.text = login ?? loginController.text;
+    newModel.passwordController.text = password ?? passwordController.text;
+    return newModel;
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'login': login,
-      'password': password,
+    return {
+      'login': loginController.text,
+      'password': passwordController.text,
     };
   }
 
   factory LoginViewModel.fromMap(Map<String, dynamic> map) {
-    return LoginViewModel(
-      login: map['login'] != null ? map['login'] as String : null,
-      password: map['password'] != null ? map['password'] as String : null,
-    );
+    final model = LoginViewModel();
+    model.loginController.text = map['login'] ?? '';
+    model.passwordController.text = map['password'] ?? '';
+    return model;
   }
 
   String toJson() => json.encode(toMap());
 
   factory LoginViewModel.fromJson(String source) =>
-      LoginViewModel.fromMap(json.decode(source) as Map<String, dynamic>);
+      LoginViewModel.fromMap(json.decode(source));
 
-  @override
-  String toString() => 'LoginViewModel(login: $login, password: $password)';
-
-  @override
-  bool operator ==(covariant LoginViewModel other) {
-    if (identical(this, other)) return true;
-
-    return other.login == login && other.password == password;
+  void dispose() {
+    loginController.dispose();
+    passwordController.dispose();
   }
 
   @override
-  int get hashCode => login.hashCode ^ password.hashCode;
+  String toString() =>
+      'LoginViewModel(login: ${loginController.text}, password: ${passwordController.text})';
+
+  @override
+  bool operator ==(covariant LoginViewModel other) {
+    return loginController.text == other.loginController.text &&
+        passwordController.text == other.passwordController.text;
+  }
+
+  @override
+  int get hashCode =>
+      loginController.text.hashCode ^ passwordController.text.hashCode;
 }

@@ -1,9 +1,10 @@
-bool emailValidator(String email) {
-  RegExp emailExp = RegExp(
-      r"^[a-zA-Z0-9](?!.*[._@]{2})[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z])?)*$");
+bool emailValidator(String? email) {
+  final RegExp emailExp = RegExp(
+    r"^[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$",
+  );
 
   bool isValid = true;
-  if (email.isEmpty || !emailExp.hasMatch(email)) {
+  if (email == null || email.isEmpty || !emailExp.hasMatch(email)) {
     isValid = false;
   }
 
@@ -27,4 +28,20 @@ bool isValidLogin(String login) {
   }
 
   return isValid;
+}
+
+bool isCurrencyValidator(String? value, {double minValue = 0.0}) {
+  // Valida se o valor digitado é maior que o mínimo
+  if (value != null && value.isNotEmpty) {
+    String cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+    double numericValue = double.parse(cleanValue) / 100;
+    if (numericValue < minValue) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool isEmpty(String? value) {
+  return (value == null || value.isEmpty);
 }

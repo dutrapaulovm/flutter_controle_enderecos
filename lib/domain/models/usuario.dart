@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter_controle_enderecos/domain/models/entity.dart';
 
-class Usuario extends Entity {
+class Usuario extends Entity<Usuario> {
   String? nome;
   String? salt;
   String? password;
@@ -23,7 +23,7 @@ class Usuario extends Entity {
     this.status,
     this.telefone,
   });
-  
+
   Usuario copyWith({
     int? id,
     String? nome,
@@ -65,7 +65,7 @@ class Usuario extends Entity {
 
   factory Usuario.fromMap(Map<String, dynamic> map) {
     return Usuario(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? map['id'] as int : 0,
       nome: map['nome'] != null ? map['nome'] as String : null,
       salt: map['salt'] != null ? map['salt'] as String : null,
       password: map['password'] != null ? map['password'] as String : null,
@@ -121,6 +121,5 @@ class Usuario extends Entity {
   String get entityName => "usuario";
 
   @override
-  fromMap(Map<String, dynamic> map) => Usuario.fromMap(map);
-
+  Usuario fromMap(Map<String, dynamic> map) => Usuario.fromMap(map);
 }

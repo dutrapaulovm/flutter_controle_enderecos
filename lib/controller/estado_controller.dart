@@ -34,9 +34,9 @@ class EstadoController {
     return null;
   }
 
-  Future<void> salvarOuAtualizarEstado() async {
+  Future<void> save() async {
     final _estado = Estado(
-      id: estado?.id, // se for edição, mantém o ID
+      id: estado!.id, // se for edição, mantém o ID
       nome: nomeController.text.trim(),
       uf: ufController.text.trim().toUpperCase(),
     );

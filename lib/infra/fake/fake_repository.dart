@@ -3,7 +3,7 @@ import 'package:flutter_controle_enderecos/domain/repository/repository.dart';
 import 'package:flutter_controle_enderecos/infra/fake/database_fake.dart';
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
 
-class FakeRepository<T extends Entity> extends IRepository<T> {
+class FakeRepository<T extends Entity<T>> extends IRepository<T> {
   final List<T> _usuarios = [];
   int _idCounter = usuariosFake.length;
 

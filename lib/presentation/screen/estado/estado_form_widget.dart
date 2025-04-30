@@ -16,11 +16,12 @@ class EstadoFormWidget extends StatefulWidget {
   });
 
   @override
-  State<EstadoFormWidget> createState() => _EstadoFormWidgetState();
+  State<EstadoFormWidget> createState() => EstadoFormWidgetState();
 }
 
-class _EstadoFormWidgetState extends State<EstadoFormWidget> {
+class EstadoFormWidgetState extends State<EstadoFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   bool isLoading = false;
 
   void submit() async {
@@ -29,7 +30,7 @@ class _EstadoFormWidgetState extends State<EstadoFormWidget> {
 
     setState(() => isLoading = true);
 
-    await widget.estadoController.salvarOuAtualizarEstado();
+    await widget.estadoController.save();
 
     if (!mounted) return;
 
@@ -54,14 +55,14 @@ class _EstadoFormWidgetState extends State<EstadoFormWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            spacer(0.10),
+            /* spacer(0.10),
             Text(
               widget.estadoController.estado == null
                   ? 'Cadastro de Estado'
                   : 'Editar Estado',
               style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
-            ),
+            ),*/
             spacer(0.10),
             InputFormField(
               controller: widget.estadoController.nomeController,

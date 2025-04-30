@@ -1,6 +1,7 @@
 import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.dart';
 import 'package:flutter_controle_enderecos/infra/fake/database_fake.dart';
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
+import 'package:flutter_controle_enderecos/utils/encrypt/encryption_context.dart';
 import '../../domain/models/usuario.dart';
 
 class FakeUsuarioRepository extends UsuarioRepository {
@@ -10,9 +11,18 @@ class FakeUsuarioRepository extends UsuarioRepository {
   @override
   Future<ResultData<int>> insert(Usuario entity) async {
     await Future.delayed(const Duration(milliseconds: 500));
-    final novo = entity.copyWith(id: _idCounter++);
-    _usuarios.add(novo);
-    return ResultData(success: true, data: novo.id);
+    final newEntity = entity.copyWith(id: _idCounter++);
+
+    EncryptionContext encryptionContext = EncryptionContext();
+
+    EncryptedPasswordResult passwordResult =
+        encryptionContext.encryptPassword(newEntity.password!);
+
+    newEntity.salt = passwordResult.salt;
+    newEntity.password = passwordResult.hash;
+
+    _usuarios.add(newEntity);
+    return ResultData(success: true, data: newEntity.id);
   }
 
   @override
@@ -56,12 +66,25 @@ class FakeUsuarioRepository extends UsuarioRepository {
   Future<ResultData<Usuario?>> login(String login, String senha) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    final user = _usuarios.firstWhere(
+    var user = _usuarios.firstWhere(
+      (u) => u.login == login,
+      orElse: () => Usuario(id: -1),
+    );
+
+    if (user.id <= 0) {
+      return ResultData(success: false, message: 'Usuário não encontrado!');
+    }
+
+    EncryptionContext context = EncryptionContext();
+
+    senha = context.encryptPassword(senha, salt: user.salt).hash;
+
+    user = _usuarios.firstWhere(
       (u) => u.login == login && u.password == senha,
       orElse: () => Usuario(id: -1),
     );
 
-    if (user.id == -1) {
+    if (user.id <= 0) {
       return ResultData(success: false, message: 'Login ou senha inválidos');
     }
 

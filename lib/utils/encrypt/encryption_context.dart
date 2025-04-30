@@ -12,7 +12,8 @@ import 'package:pointycastle/export.dart';
 /// dinamicamente, seguindo o padrão Strategy
 class EncryptionContext {
   // Chave padrão (32 caracteres para AES-256)
-  static const _defaultKey = '12345678901234567890123456789012';
+  static const _defaultKey =
+      'AaVCeTwlHuTgCIDqkRan2GZ50x/VqmujdRrsDW79ZefWObfSyZgw8AIFPKpDg6HC';
 
   // Instância singleton
   static final EncryptionContext _instance = EncryptionContext._internal();
@@ -92,7 +93,7 @@ class EncryptionContext {
   /// Retorna o hash como uma String codificada em Base64.
   String getPasswordHash(String password, Uint8List salt) {
     final derivator = PBKDF2KeyDerivator(HMac(SHA256Digest(), 64))
-      ..init(Pbkdf2Parameters(salt, 100000, 32)); // 32 bytes = 256 bits
+      ..init(Pbkdf2Parameters(salt, 1000, 32)); // 32 bytes = 256 bits
 
     final hashBytes = derivator.process(utf8.encode(password));
 
@@ -111,4 +112,27 @@ class EncryptionContext {
     final digest = sha256.convert(bytes); // Gera o hash SHA-256
     return digest.toString(); // Retorna como hexadecimal (lowercase)
   }
+
+  EncryptedPasswordResult encryptPassword(String input, {salt}) {
+    String salts = "";
+    if (salt == null) {
+      salts = generateSalt(); // Base64 string
+    } else {
+      salts = salt;
+    }
+    final saltBytes = base64Decode(salts);
+    String passwordHash = getPasswordHash(input, saltBytes);
+    return EncryptedPasswordResult(passwordHash, salts);
+  }
+}
+
+/// Representa o resultado da criptografia de senha contendo o hash e o salt.
+class EncryptedPasswordResult {
+  /// Hash da senha resultante do PBKDF2 com HMAC-SHA256.
+  final String hash;
+
+  /// Salt aleatório utilizado, codificado em Base64.
+  final String salt;
+
+  EncryptedPasswordResult(this.hash, this.salt);
 }

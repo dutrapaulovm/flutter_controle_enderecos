@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 ///
 /// Um componente TextField customizado para formulários
@@ -9,12 +10,13 @@ class InputFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Function(String)? onChanged;
   final void Function(String?)? onSaved;
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
   final String? errorText;
   final String? hintText;
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
   TextCapitalization textCapitalization = TextCapitalization.none;
   final int? maxLength;
   final bool autoFocus;
@@ -35,6 +37,7 @@ class InputFormField extends StatelessWidget {
       this.suffixIcon,
       this.textCapitalization = TextCapitalization.none,
       this.maxLength,
+      this.inputFormatters,
       super.key});
 
   @override
@@ -51,6 +54,7 @@ class InputFormField extends StatelessWidget {
       obscureText: obscureText,
       textCapitalization: textCapitalization,
       maxLength: maxLength,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         labelText: labelText,

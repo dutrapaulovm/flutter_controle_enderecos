@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppForm extends StatelessWidget {
+class AppForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final List<Widget>? children;
   final Widget? child;
@@ -15,15 +15,21 @@ class AppForm extends StatelessWidget {
   });
 
   @override
+  State<AppForm> createState() => _AppFormState();
+}
+
+class _AppFormState extends State<AppForm> {
+  @override
   Widget build(BuildContext context) {
     return FocusScope(
-        node: focusNode,
+        node: widget.focusNode,
         child: SingleChildScrollView(
-            child: Form(key: formKey, child: _formBody())));
+            child: Form(key: widget.formKey, child: _formBody())));
   }
 
   Widget _formBody() {
-    return child ??
-        ListView(padding: const EdgeInsets.all(16), children: children ?? []);
+    return widget.child ??
+        ListView(
+            padding: const EdgeInsets.all(16), children: widget.children ?? []);
   }
 }

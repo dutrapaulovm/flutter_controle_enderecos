@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/controller/login_controller.dart';
+import 'package:flutter_controle_enderecos/controller/user_controller.dart';
 import 'package:flutter_controle_enderecos/presentation/app/app_form.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/register_user/register_user_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 
 class LoginFormWidget extends StatefulWidget {
-  final LoginController loginController;
+  final UserController loginController;
   final VoidCallback onSubmit;
 
   const LoginFormWidget({
@@ -37,20 +37,24 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
     if (!result.success!) {
       showErrorDialog(result, context);
-
-      setState(() {
-        isLoading = false;
-        widget.loginController.reset();
-      });
-
+      _resetLogin();
       return;
     }
+
+    _resetLogin();
+
     widget.onSubmit();
+  }
+
+  void _resetLogin() {
+    setState(() {
+      isLoading = false;
+      widget.loginController.reset();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (isLoading) {
@@ -83,7 +87,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             ),
             spacer(0.12),
             InputFormField(
-              controller: widget.loginController.loginController,
+              controller: widget.loginController.loginViewModel.loginController,
               validator: widget.loginController.loginValidator,
               labelText: 'Email ou Usuário',
               keyboardType: TextInputType.emailAddress,
@@ -92,8 +96,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             ),
             spacer(0.025),
             InputFormField(
-              controller: widget.loginController.passwordController,
-              validator: widget.loginController.passwordValidator,
+              controller:
+                  widget.loginController.loginViewModel.passwordController,
+              validator: widget.loginController.fieldValidator,
               labelText: 'Senha',
               obscureText: _obscurePassword,
               textInputAction: TextInputAction.done,
@@ -117,12 +122,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               ),
             ),
             spacer(0.075),
-            FormButton(text: 'Entrar', onPressed: widget.onSubmit),
+            FormButton(text: 'Entrar', onPressed: submit),
             spacer(0.15),
             TextButton(
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                MaterialPageRoute(builder: (_) => const RegisterUserScreen()),
               ),
               child: RichText(
                 text: const TextSpan(

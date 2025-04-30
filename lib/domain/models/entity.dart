@@ -1,5 +1,5 @@
-abstract class Entity {
-  int id = 0;
+abstract class Entity<T extends Entity<T>> {
+  int id;
 
   String get primaryKey => "id";
 
@@ -7,9 +7,9 @@ abstract class Entity {
 
   dynamic get getValueId => id;
 
-  Entity({id});
+  Entity({this.id = 0});
 
   Map<String, dynamic> toMap();
 
-  dynamic fromMap(Map<String, dynamic> map);
+  T fromMap(Map<String, dynamic> map);
 }

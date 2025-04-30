@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter_controle_enderecos/domain/models/entity.dart';
 
-class Estado extends Entity {
+class Estado extends Entity<Estado> {
   String? nome;
   String? uf;
   Estado({
@@ -35,7 +35,7 @@ class Estado extends Entity {
 
   factory Estado.fromMap(Map<String, dynamic> map) {
     return Estado(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? map['id'] as int : 0,
       nome: map['nome'] != null ? map['nome'] as String : null,
       uf: map['uf'] != null ? map['uf'] as String : null,
     );
@@ -57,13 +57,13 @@ class Estado extends Entity {
   }
 
   @override
-  int get hashCode => id.hashCode ^ nome.hashCode ^ uf.hashCode;
+  int get hashCode => nome.hashCode ^ uf.hashCode;
 
   @override
   String get entityName => "estado";
 
   @override
-  fromMap(Map<String, dynamic> map) {
-    Estado.fromMap(map);
+  Estado fromMap(Map<String, dynamic> map) {
+    return Estado.fromMap(map);
   }
 }
