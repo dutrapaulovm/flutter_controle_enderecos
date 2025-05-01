@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_controle_enderecos/authenticated.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/screens.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 
@@ -12,6 +13,17 @@ class HomeNavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _drawer(context);
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    Authenticated authenticated = Authenticated();
+    await authenticated.deleteToken();
+
+    // Voltar para tela de login (exemplo fictício)
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
+    );
   }
 
   Widget _drawer(BuildContext context) {
@@ -28,6 +40,13 @@ class HomeNavigationDrawer extends StatelessWidget {
           icon: Icons.abc,
           rota: SearchEstadoScreen.routeName,
           title: "Estado"),
+      "sair": MenuItemWidget(
+          onTap: () {
+            showExitDialog(context, onPressed: () => _logout(context));
+          },
+          selected: selectedIndex == "sair",
+          icon: Icons.abc,
+          title: "Sair"),
     };
 
     return Drawer(

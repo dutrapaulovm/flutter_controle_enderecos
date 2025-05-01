@@ -37,3 +37,28 @@ Future<void> showErrorDialog(
     },
   );
 }
+
+void showExitDialog(BuildContext context, {Function()? onPressed}) {
+  showDialog(
+    context: context,
+    builder: (_) => AlertDialog(
+      title: const Text('Sair'),
+      content: const Text('Deseja realmente sair da sessão?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context), // Cancela
+          child: const Text('Cancelar'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context); // Fecha o dialog
+            if (onPressed != null) {
+              onPressed.call();
+            }
+          },
+          child: const Text('Sim, sair'),
+        ),
+      ],
+    ),
+  );
+}

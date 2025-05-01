@@ -75,10 +75,10 @@ class _HomeBodyScreenState extends State<HomeBodyScreen> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text("Resumo", style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 10),
-          Wrap(
+          const Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: const [
+            children: [
               DashboardCard(title: "Total", value: "120", icon: Icons.home),
               DashboardCard(title: "Com erro", value: "5", icon: Icons.warning),
               DashboardCard(
@@ -90,7 +90,7 @@ class _HomeBodyScreenState extends State<HomeBodyScreen> {
           const SizedBox(height: 20),
           Text("Tipos de Endereço",
               style: Theme.of(context).textTheme.titleLarge),
-          SizedBox(height: 200, child: TipoEnderecoChart()),
+          const SizedBox(height: 200, child: TipoEnderecoChart()),
         ])));
   }
 

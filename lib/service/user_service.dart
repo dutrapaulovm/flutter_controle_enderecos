@@ -1,3 +1,4 @@
+import 'package:flutter_controle_enderecos/authenticated.dart';
 import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
 import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.dart';
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
@@ -8,6 +9,7 @@ class LoginService {
   final UsuarioRepository _repository = ServiceLocator.instance
       .getService(ServiceKeys.usuario) as UsuarioRepository;
   EncryptionContext context = EncryptionContext();
+  Authenticated authenticated = Authenticated();
 
   // Método para realizar o login
   Future<ResultData> signIn(Usuario user) async {
@@ -40,13 +42,16 @@ class LoginService {
     }
 
     // Chama o repositório para autenticar o usuário
-    final usuario = await _repository.login(login, senha);
+    final result = await _repository.login(login, senha);
 
     // Verifica se o usuário não foi encontrado ou a senha está incorreta
-    if (usuario == null || usuario.data == null || usuario.data!.id == -1) {
+    if (result == null || result.data == null || result.data!.id == -1) {
       resultApplication.message = "Usuário ou senha inválidos";
       return resultApplication;
     }
+
+    String? token = result.token;
+    authenticated.saveToken(token!);
 
     // Se o login for bem-sucedido, marca o sucesso e retorna o usuário
     resultApplication.success = true;

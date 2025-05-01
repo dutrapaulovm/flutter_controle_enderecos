@@ -16,16 +16,22 @@ class ResultData<T> {
   /// ao HTTP, mas sim códigos internos da aplicação.
   String? status = '';
 
+  String? token = '';
+
   /// Dados que serão retornados pelo resultado.
   T? data;
 
-  ResultData({
-    this.success = false,
-    this.message = '',
-    this.errors = '',
-    this.status = '',
-    this.data,
-  });
+  /// Lista para retornar outros dados importantes que não contemplam as informações anteriores
+  List<Map<String, dynamic>>? others;
+
+  ResultData(
+      {this.success = false,
+      this.message = '',
+      this.errors = '',
+      this.status = '',
+      this.token = '',
+      this.data,
+      this.others});
 
   ResultData copyWith({
     bool? success,
@@ -50,17 +56,19 @@ class ResultData<T> {
       'message': message,
       'errors': errors,
       'status': status,
+      'token': token,
       'data': data,
     };
   }
 
   factory ResultData.fromMap(Map<String, dynamic> map) {
     return ResultData(
-      success: map['success'] != null ? map['success'] as bool : null,
-      message: map['message'] != null ? map['message'] as String : null,
+      success: map['success'] != null ? map['success'] as bool : false,
+      message: map['message'] != null ? map['message'] as String : "",
       errors: map['errors'] != null ? map['errors'] as dynamic : null,
-      status: map['status'] != null ? map['status'] as String : null,
-      data: map['data'] != null ? map['data'] as dynamic : null,
+      status: map['status'] != null ? map['status'] as String : "",
+      token: map['token'] != null ? map['token'] as String : "",
+      data: map['data'] != null ? map['data'] as T : null,
     );
   }
 
@@ -82,6 +90,7 @@ class ResultData<T> {
         other.message == message &&
         other.errors == errors &&
         other.status == status &&
+        other.token == token &&
         other.data == data;
   }
 
@@ -91,6 +100,7 @@ class ResultData<T> {
         message.hashCode ^
         errors.hashCode ^
         status.hashCode ^
+        token.hashCode ^
         data.hashCode;
   }
 }
