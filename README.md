@@ -23,10 +23,6 @@ Na **Iteração 02**, foram implementadas as seguintes funcionalidades:
   - Armazenamento de token/sessão no dispositivo.
   - Logout limpa os dados da sessão.
 
-- ✅ **Estruturação inicial para controle de permissões por tipo de usuário**
-  - Diferenciação de acesso com base em perfis de usuário (ex: admin, usuário comum).
-  - Base para limitar funcionalidades conforme permissões.
-
 ## 🗂️ Estrutura das Pastas (Atualizada)
 
 ```
