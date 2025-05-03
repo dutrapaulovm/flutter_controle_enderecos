@@ -1,20 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_controle_enderecos/controller/controller.dart';
 import 'package:flutter_controle_enderecos/domain/models/estado.dart';
-import 'package:flutter_controle_enderecos/infra/fake/estado_fake_repository.dart';
+import 'package:flutter_controle_enderecos/domain/repository/estado_repository.dart';
+import 'package:flutter_controle_enderecos/infra/result_data.dart';
+import 'package:flutter_controle_enderecos/view_model/estado_view_model.dart';
 
-class EstadoController {
-  final TextEditingController nomeController = TextEditingController();
-  final TextEditingController ufController = TextEditingController();
-
-  final EstadoFakeRepository repository = EstadoFakeRepository();
+class EstadoController extends Controller<Estado> {
+  final EstadoViewModel estadoViewModel = EstadoViewModel();
+  final EstadoRepository repository;
 
   Estado? estado;
 
-  EstadoController({this.estado}) {
+  EstadoController({required this.repository, this.estado}) {
     if (estado != null) {
-      nomeController.text = estado!.nome!;
-      ufController.text = estado!.uf!;
+      estadoViewModel.fromEntity(estado!);
     }
+  }
+
+  String get titleState {
+    return estado == null ? 'Novo Estado' : 'Editar Estado';
   }
 
   String? nomeValidator(String? value) {
@@ -34,23 +37,38 @@ class EstadoController {
     return null;
   }
 
-  Future<void> save() async {
-    final _estado = Estado(
-      id: estado!.id, // se for edição, mantém o ID
-      nome: nomeController.text.trim(),
-      uf: ufController.text.trim().toUpperCase(),
-    );
-
-    if (estado == null) {
-      await repository.insert(_estado);
+  @override
+  Future<ResultData> save() async {
+    final estado = estadoViewModel.toEntity();
+    if (estado.id <= 0) {
+      return await repository.insert(estado);
     } else {
-      await repository.update(_estado);
+      return await repository.update(estado);
     }
   }
 
-  void reset() {
-    nomeController.clear();
-    ufController.clear();
-    estado = null;
+  @override
+  Future<void> reset() async {
+    estadoViewModel.reset();
+  }
+
+  @override
+  Future<ResultData> delete() async {
+    final entity = estadoViewModel.toEntity();
+    if (entity.id >= 0) {
+      return await repository.delete(entity);
+    }
+    return ResultData();
+  }
+
+  @override
+  Future<ResultData> findAll() async {
+    return await repository.findAll(Estado());
+  }
+
+  @override
+  void fromEntity(Estado entity) {
+    estado = entity;
+    return estadoViewModel.fromEntity(entity);
   }
 }

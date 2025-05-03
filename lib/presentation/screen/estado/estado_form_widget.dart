@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_controle_enderecos/controller/estado_controller.dart';
+import 'package:flutter_controle_enderecos/domain/models/estado.dart';
 import 'package:flutter_controle_enderecos/presentation/app/app_form.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 
-// ... imports mantidos
-
 class EstadoFormWidget extends StatefulWidget {
-  final EstadoController estadoController;
+  final EstadoController controller;
   final VoidCallback onSubmit;
 
   const EstadoFormWidget({
-    required this.estadoController,
+    required this.controller,
     required this.onSubmit,
     super.key,
   });
@@ -24,18 +23,28 @@ class EstadoFormWidgetState extends State<EstadoFormWidget> {
 
   bool isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void submit() async {
     final form = _formKey.currentState;
     if (form == null || !form.validate()) return;
 
     setState(() => isLoading = true);
 
-    await widget.estadoController.save();
+    final result = await widget.controller.save();
 
     if (!mounted) return;
 
+    if (!result.success!) {
+      showErrorDialog(result, context);
+      setState(() => isLoading = false);
+      return;
+    }
     setState(() => isLoading = false);
-    widget.onSubmit();
+    await showMessageDialog("Salvo com sucesso", context);
   }
 
   @override
@@ -43,7 +52,6 @@ class EstadoFormWidgetState extends State<EstadoFormWidget> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (isLoading) return const Center(child: CircularProgress());
-
     Widget spacer(double factor) => SizedBox(height: screenHeight * factor);
 
     return Padding(
@@ -55,37 +63,28 @@ class EstadoFormWidgetState extends State<EstadoFormWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            /* spacer(0.10),
-            Text(
-              widget.estadoController.estado == null
-                  ? 'Cadastro de Estado'
-                  : 'Editar Estado',
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),*/
             spacer(0.10),
             InputFormField(
-              controller: widget.estadoController.nomeController,
-              validator: widget.estadoController.nomeValidator,
+              controller: widget.controller.estadoViewModel.nomeController,
+              validator: widget.controller.nomeValidator,
               labelText: 'Nome do Estado',
+              maxLength: 60,
               textInputAction: TextInputAction.next,
             ),
             spacer(0.025),
             InputFormField(
-              controller: widget.estadoController.ufController,
-              validator: widget.estadoController.ufValidator,
+              controller: widget.controller.estadoViewModel.ufController,
+              validator: widget.controller.ufValidator,
               labelText: 'Sigla (UF)',
               textCapitalization: TextCapitalization.characters,
               maxLength: 2,
               textInputAction: TextInputAction.done,
             ),
-            spacer(0.05),
+            /* spacer(0.05),
             FormButton(
-              text: widget.estadoController.estado == null
-                  ? 'Salvar'
-                  : 'Atualizar',
+              text: widget.controller.estado == null ? 'Salvar' : 'Atualizar',
               onPressed: submit,
-            ),
+            ),*/
           ],
         ),
       ),

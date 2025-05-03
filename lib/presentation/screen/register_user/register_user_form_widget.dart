@@ -63,7 +63,7 @@ class _RegisterUserFormWidgetState extends State<RegisterUserFormWidget> {
 
     setState(() => isLoading = false);
 
-    await showMessageDialog("Salvo com sucess", context);
+    await showMessageDialog("Salvo com sucesso", context);
 
     widget.onSubmit();
   }

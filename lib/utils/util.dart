@@ -23,13 +23,13 @@ String? validar(String? value, String info) {
 bool isBundle(dynamic object) {
   bool result = object is Bundle;
   if (!result) {
-    throw ApplicationException(null, message: "Type isn't a Bundle");
+    throw ApplicationException(message: "Type isn't a Bundle");
   }
   return result;
 }
 
 ///Enum utilizado para definir os nomes dos parâmetros a serem enviados entre as janelas
-enum Argumentos { entidade, origem, id, parent }
+enum Argument { entity, source, id, parent }
 
 ///Classe utilizada para armazenar informações sobre os parâmetros enviados entre as janlas
 class Bundle {

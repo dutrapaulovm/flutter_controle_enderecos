@@ -25,6 +25,11 @@ class ListModel<E> extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeAt(int index) {
+    items.removeAt(index);
+    notifyListeners();
+  }
+
   void clear() {
     items.clear();
     notifyListeners();

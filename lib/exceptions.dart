@@ -1,19 +1,17 @@
 /// Exception base para todos os exceptions da aplicação e para ocorrência de erros
 /// gerais ocorridas na aplicação
 class ApplicationException implements Exception {
-  final Exception? _exception;
-  late String? _message;
+  final Exception? exception;
+  late String? message;
 
-  ApplicationException(this._exception, {String? message}) {
-    _message = message;
-  }
+  ApplicationException({this.exception, this.message});
 
   @override
   String toString() {
-    if (_message != null) {
-      return _message.toString();
+    if (message != null) {
+      return message.toString();
     } else {
-      return _exception.toString();
+      return exception.toString();
     }
   }
 
@@ -22,12 +20,12 @@ class ApplicationException implements Exception {
 
 /// Thrown by the repository when a problem occurs.
 class RepositoryException extends ApplicationException {
-  RepositoryException(Exception super.exception, {super.message});
+  RepositoryException({super.exception, super.message});
 }
 
 /// Thrown by the Service when a problem occurs.
 class ServiceException extends ApplicationException {
-  ServiceException(Exception super.exception, {super.message});
+  ServiceException({super.exception, super.message});
 }
 
 /// Base Result class

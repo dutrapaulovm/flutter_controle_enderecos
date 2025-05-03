@@ -7,7 +7,7 @@ import 'package:flutter_controle_enderecos/utils/encrypt/encryption_context.dart
 
 class LoginService {
   final UsuarioRepository _repository = ServiceLocator.instance
-      .getService(ServiceKeys.usuario) as UsuarioRepository;
+      .getService(ServiceKeys.repositoryUsuario) as UsuarioRepository;
   EncryptionContext context = EncryptionContext();
   Authenticated authenticated = Authenticated();
 

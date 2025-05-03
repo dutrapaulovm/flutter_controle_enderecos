@@ -3,7 +3,8 @@ import 'package:flutter_controle_enderecos/routes.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
 
 void main() {
-  initRepositories(mode: RepositoryMode.fake);
+  setupRepositories(mode: RepositoryMode.fake);
+  setupControllers();
   runApp(const MainApp());
 }
 
