@@ -24,6 +24,7 @@ class _AppFormState extends State<AppForm> {
     return FocusScope(
         node: widget.focusNode,
         child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
             child: Form(key: widget.formKey, child: _formBody())));
   }
 

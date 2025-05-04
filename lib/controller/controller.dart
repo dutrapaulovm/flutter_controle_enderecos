@@ -42,4 +42,6 @@ abstract class Controller<E extends Entity<E>> {
   ///
   /// Esse método é utilizado para sincronizar o controlador com os dados de uma entidade existente.
   void fromEntity(E entity);
+
+  String get title;
 }

@@ -1,27 +1,29 @@
-# Flutter Controle de Endereços - Iteração 02
+# Flutter Controle de Endereços - Iteração 03
 
-Este projeto é parte de um sistema para controle de endereços, desenvolvido utilizando o framework Flutter. O objetivo é fornecer uma base sólida para gerenciamento de usuários, sessões e segurança através da arquitetura em camadas e boas práticas de desenvolvimento.
+Este projeto é parte de um sistema para controle de endereços, desenvolvido utilizando o framework Flutter. O objetivo é fornecer uma base sólida para gerenciamento de usuários, endereços, clientes e sessões, utilizando arquitetura em camadas e boas práticas de desenvolvimento.
 
-## 📌 Iteração 02 - Funcionalidades Implementadas
+## 📌 Iteração 03 - Funcionalidades Implementadas
 
-Na **Iteração 02**, foram implementadas as seguintes funcionalidades:
+Na **Iteração 03**, foram implementadas as seguintes funcionalidades:
 
-- ✅ **Criação da tela de login com validação de credenciais**
+- ✅ **Cadastro de Endereços**
 
-  - Interface para entrada de login e senha.
+  - Formulário com campos obrigatórios para inserção de endereços.
   - Validação dos campos com feedback ao usuário.
-  - Autenticação com base nos dados armazenados localmente.
 
-- ✅ **Criptografia das senhas armazenadas**
+- ✅ **Cadastro de Clientes**
 
-  - As senhas dos usuários são criptografadas antes de serem salvas no banco de dados.
-  - A autenticação compara os hashes para garantir a segurança.
+  - Formulário para inserção dos dados dos clientes.
+  - Validação dos campos obrigatórios.
 
-- ✅ **Implementação do controle de sessão**
+- ✅ **Armazenamento em Estrutura Interna**
 
-  - Sessão de usuário ativa após login bem-sucedido.
-  - Armazenamento de token/sessão no dispositivo.
-  - Logout limpa os dados da sessão.
+  - Armazenamento dos dados de endereços e clientes em listas internas.
+  - Estrutura preparada para futura persistência em banco de dados.
+
+- ✅ **Listagem de Endereços**
+  - Exibição dos endereços cadastrados em formato de tabela.
+  - Visualização clara e organizada dos dados inseridos.
 
 ## 🗂️ Estrutura das Pastas (Atualizada)
 
@@ -40,15 +42,15 @@ lib/
 
 - Flutter 3.x
 - Dart
-- SQLite (armazenamento local)
+- SQLite (planejado para persistência futura)
 - SharedPreferences (sessão)
 - Hashing (criptografia de senhas)
 
 ## 💡 Próximos Passos
 
 - Implementar controle completo de permissões por tela e funcionalidade.
-- Integração com backend remoto para autenticação.
-- Cadastro de novos usuários.
+- Integração com backend remoto para autenticação e persistência.
+- Cadastro e listagem de clientes com persistência local.
 
 ## 👨‍💻 Autor
 

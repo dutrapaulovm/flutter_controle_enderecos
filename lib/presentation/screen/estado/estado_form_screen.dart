@@ -1,55 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_controle_enderecos/controller/estado_controller.dart';
 import 'package:flutter_controle_enderecos/domain/models/estado.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/estado/estado_form_widget.dart';
+import 'package:flutter_controle_enderecos/infra/result_data.dart';
+import 'package:flutter_controle_enderecos/presentation/app/generic_form_screen.dart';
+import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
-import 'package:flutter_controle_enderecos/utils/util.dart';
 
 class EstadoFormScreen extends StatefulWidget {
   static const String routeName = '/estado_screen';
 
-  const EstadoFormScreen({super.key});
+  const EstadoFormScreen({
+    super.key,
+  });
 
   @override
-  State<StatefulWidget> createState() => _EstadoScrenState();
+  State<EstadoFormScreen> createState() => EstadoFormScreenState();
 }
 
-class _EstadoScrenState extends State<EstadoFormScreen> {
-  final GlobalKey<EstadoFormWidgetState> formKey =
-      GlobalKey<EstadoFormWidgetState>();
-
+class EstadoFormScreenState extends State<EstadoFormScreen> {
   final EstadoController controller =
       ServiceLocator.instance.getService(ServiceKeys.controllerEstado);
 
-  @override
-  void initState() {
-    super.initState();
-    // Dê um pequeno atraso para garantir que o contexto está pronto
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final args = ModalRoute.of(context)!.settings.arguments as Bundle;
-      final estado = args.get(Argument.entity) as Estado;
-      controller.fromEntity(estado);
-      setState(() {}); // Força o rebuild com título atualizado
-    });
-  }
+  final GlobalKey<GenericFormScreenState<Estado, EstadoController>>
+      _formScreenKey = GlobalKey();
 
-  void onSubmit() {
-    formKey.currentState?.submit();
+  Future<ResultData> onActionSubmit() async {
+    final result = await controller.save();
+    return result;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(onPressed: onSubmit, icon: const Icon(Icons.check))
-        ],
-        title: Text(
-          controller.titleState,
+    return GenericFormScreen<Estado, EstadoController>(
+      key: _formScreenKey,
+      controller: controller,
+      title: controller.title,
+      onActionSubmit: onActionSubmit,
+      buildForm: () => buildEstadoForm(),
+      onSuccess: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  Widget buildEstadoForm() {
+    //final screenHeight = MediaQuery.of(context).size.height;
+    //if (isLoading) return const Center(child: CircularProgress());
+    //Widget spacer(double factor) => SizedBox(height: screenHeight * factor);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        spacer(0.10),
+        InputFormField(
+          controller: controller.estadoViewModel.nomeController,
+          validator: controller.nomeValidator,
+          labelText: 'Nome do Estado',
+          maxLength: 60,
+          textInputAction: TextInputAction.next,
         ),
-      ),
-      body: EstadoFormWidget(
-          controller: controller, key: formKey, onSubmit: onSubmit),
+        spacer(0.025),
+        InputFormField(
+          controller: controller.estadoViewModel.ufController,
+          validator: controller.ufValidator,
+          labelText: 'Sigla (UF)',
+          textCapitalization: TextCapitalization.characters,
+          maxLength: 2,
+          textInputAction: TextInputAction.done,
+        ),
+        spacer(0.05),
+        FormButton(
+          text: controller.estado == null ? 'Salvar' : 'Atualizar',
+          onPressed: () {
+            _formScreenKey.currentState?.submitForm();
+          },
+        ),
+      ],
     );
   }
 }

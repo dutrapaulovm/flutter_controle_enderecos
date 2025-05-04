@@ -4,7 +4,7 @@ import 'dart:convert';
 /// Classe utilizada como padrão de resposta para requisições no formato Json.
 class ResultData<T> {
   /// Flag que define se houve sucesso no resultado.
-  bool? success = false;
+  bool success = false;
 
   /// Informação sobre o resultado.
   String? message = '';

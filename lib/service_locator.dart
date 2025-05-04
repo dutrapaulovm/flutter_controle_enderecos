@@ -4,7 +4,7 @@ import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.
 import 'package:flutter_controle_enderecos/exceptions.dart';
 import 'package:flutter_controle_enderecos/infra/api/api_usuario_repository.dart';
 import 'package:flutter_controle_enderecos/infra/fake/estado_fake_data_source.dart';
-import 'package:flutter_controle_enderecos/infra/fake/estado_fake_repository.dart';
+import 'package:flutter_controle_enderecos/infra/fake/fake_estado_repository.dart';
 import 'package:flutter_controle_enderecos/infra/fake/fake_usuario_repository.dart';
 
 /// A classe `ServiceLocator` fornece um mecanismo centralizado para

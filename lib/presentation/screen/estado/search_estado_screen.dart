@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_controle_enderecos/controller/estado_controller.dart';
 import 'package:flutter_controle_enderecos/domain/models/estado.dart';
-import 'package:flutter_controle_enderecos/domain/repository/estado_repository.dart';
-import 'package:flutter_controle_enderecos/infra/fake/estado_fake_data_source.dart';
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
 import 'package:flutter_controle_enderecos/presentation/app/apps.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/screens.dart';

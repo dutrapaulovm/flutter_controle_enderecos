@@ -16,7 +16,8 @@ class EstadoController extends Controller<Estado> {
     }
   }
 
-  String get titleState {
+  @override
+  String get title {
     return estado == null ? 'Novo Estado' : 'Editar Estado';
   }
 

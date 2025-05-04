@@ -4,7 +4,7 @@ import 'package:flutter_controle_enderecos/domain/models/entity.dart';
 import 'package:flutter_controle_enderecos/presentation/app/app_form.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 import 'package:flutter_controle_enderecos/utils/utils.dart';
-
+/*
 class FormBaseState<T extends StatefulWidget, E extends Entity<E>>
     extends State<T> {
   final Controller controller;
@@ -57,3 +57,4 @@ class FormBaseState<T extends StatefulWidget, E extends Entity<E>>
     );
   }
 }
+*/
