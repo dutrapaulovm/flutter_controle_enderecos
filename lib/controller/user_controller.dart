@@ -1,3 +1,4 @@
+import 'package:flutter_controle_enderecos/controller/controllers.dart';
 import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
 import 'package:flutter_controle_enderecos/service/user_service.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_controle_enderecos/utils/utils.dart' as util;
 import 'package:flutter_controle_enderecos/view_model/login_view_model.dart';
 import 'package:flutter_controle_enderecos/view_model/usuario_view_model.dart';
 
-class UserController {
+class UserController extends Controller<Usuario> {
   LoginViewModel loginViewModel = LoginViewModel();
   UsuarioViewModel usuarioViewModel = UsuarioViewModel();
   final LoginService _loginService = LoginService();
@@ -14,7 +15,9 @@ class UserController {
     loginViewModel.reset();
   }
 
-  Future<ResultData> signIn(Usuario user) async {
+  @override
+  Future<ResultData> save() async {
+    Usuario user = usuarioViewModel.toEntity();
     user.id = -1;
     final resultApplication = await _loginService.signIn(user);
     return resultApplication;
@@ -31,7 +34,7 @@ class UserController {
   }
 
   String? fieldValidator(String? value) {
-    if (value == null || value.isEmpty) {
+    if (util.isEmpty(value)) {
       return 'Campo obrigatório.';
     }
 
@@ -73,11 +76,29 @@ class UserController {
     return text.isNotEmpty;
   }
 
-  void reset() {
+  @override
+  Future<void> reset() async {
     loginViewModel.reset();
-    /*loginController.clear();
-    passwordController.clear();
-    loginController.text = "alice";
-    passwordController.text = "senha123";*/
   }
+
+  @override
+  Future<ResultData> delete() {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResultData> findAll() {
+    // TODO: implement findAll
+    throw UnimplementedError();
+  }
+
+  @override
+  void fromEntity(Usuario entity) {
+    // TODO: implement fromEntity
+  }
+
+  @override
+  // TODO: implement title
+  String get title => throw UnimplementedError();
 }

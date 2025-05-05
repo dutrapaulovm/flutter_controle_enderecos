@@ -47,15 +47,12 @@ class _RegisterUserFormWidgetState extends State<RegisterUserFormWidget> {
     if (form == null || !form.validate()) return;
 
     setState(() => isLoading = true);
-    UserController userController = widget.userController;
-    UsuarioViewModel viewModel = userController.usuarioViewModel;
-    Usuario user = viewModel.toEntity();
-    var result = await widget.userController.signIn(user);
+    var result = await widget.userController.save();
 
     // Verifica se o widget ainda está montado
     if (!mounted) return;
 
-    if (!result.success!) {
+    if (!result.success) {
       showErrorDialog(result, context);
       setState(() => isLoading = false);
       return;

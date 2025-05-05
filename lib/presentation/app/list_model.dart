@@ -48,7 +48,7 @@ class ListModel<E> extends ChangeNotifier {
     return filteredResults;
   }
 
-  void resetFilter() {
+  Future<void> resetFilter() async {
     filteredResults = List.from(items);
     notifyListeners();
   }

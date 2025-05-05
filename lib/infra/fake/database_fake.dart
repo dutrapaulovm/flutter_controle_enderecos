@@ -1,3 +1,4 @@
+import 'package:flutter_controle_enderecos/domain/models/cidade.dart';
 import 'package:flutter_controle_enderecos/domain/models/usuario.dart';
 import 'package:flutter_controle_enderecos/utils/encrypt/encryption_context.dart';
 
@@ -37,62 +38,15 @@ List<Usuario> gerarUsuariosFakes(int quantidade) {
 
 final List<Usuario> usuariosFake = gerarUsuariosFakes(20);
 
-/*
-final List<Usuario> usuariosFake = [
-  Usuario(
-    id: 1,
-    nome: "Alice Santos",
-    salt: "abc123",
-    password: "senha123",
-    login: "alice",
-    email: "alice@example.com",
-    data: DateTime(2024, 5, 12),
-    status: "ativo",
-    telefone: "11999999999",
-  ),
-  Usuario(
-    id: 2,
-    nome: "Bruno Oliveira",
-    salt: "def456",
-    password: "123senha",
-    login: "bruno_oliveira",
-    email: "bruno.o@gmail.com",
-    data: DateTime(2023, 11, 2),
-    status: "inativo",
-    telefone: "21988888888",
-  ),
-  Usuario(
-    id: 3,
-    nome: "Carla Mendes",
-    salt: "ghi789",
-    password: "carla2024",
-    login: "carlam",
-    email: "carla.mendes@if.edu.br",
-    data: DateTime(2022, 8, 23),
-    status: "ativo",
-    telefone: "31977777777",
-  ),
-  Usuario(
-    id: 4,
-    nome: "Diego Lima",
-    salt: "xyz321",
-    password: "senhaDiego",
-    login: "diegol",
-    email: "diego.lima@empresa.com",
-    data: DateTime(2024, 1, 1),
-    status: "ativo",
-    telefone: "11912345678",
-  ),
-  Usuario(
-    id: 5,
-    nome: "Eduarda Silva",
-    salt: "lmn654",
-    password: "edu123",
-    login: "eduarda_s",
-    email: "eduarda.silva@hotmail.com",
-    data: DateTime(2021, 9, 15),
-    status: "pendente",
-    telefone: "11945678901",
-  ),
+List<Cidade> cidadesFake = [
+  Cidade(id: 1, nome: 'São Paulo', uf: 'SP', ibge: '3550308'),
+  Cidade(id: 2, nome: 'Rio de Janeiro', uf: 'RJ', ibge: '3304557'),
+  Cidade(id: 3, nome: 'Belo Horizonte', uf: 'MG', ibge: '3106200'),
+  Cidade(id: 4, nome: 'Porto Alegre', uf: 'RS', ibge: '4314902'),
+  Cidade(id: 5, nome: 'Salvador', uf: 'BA', ibge: '2927408'),
+  Cidade(id: 6, nome: 'Curitiba', uf: 'PR', ibge: '4106902'),
+  Cidade(id: 7, nome: 'Fortaleza', uf: 'CE', ibge: '2304400'),
+  Cidade(id: 8, nome: 'Recife', uf: 'PE', ibge: '2611606'),
+  Cidade(id: 9, nome: 'Goiânia', uf: 'GO', ibge: '5208707'),
+  Cidade(id: 10, nome: 'Manaus', uf: 'AM', ibge: '1302603'),
 ];
-*/

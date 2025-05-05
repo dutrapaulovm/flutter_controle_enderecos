@@ -5,7 +5,7 @@ class CidadeViewModel {
   final TextEditingController idController = TextEditingController();
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController ufController = TextEditingController();
-  final TextEditingController ibgController = TextEditingController();
+  final TextEditingController ibgeController = TextEditingController();
 
   int? id = 0;
 
@@ -15,7 +15,7 @@ class CidadeViewModel {
     id = cidade.id;
     nomeController.text = cidade.nome ?? '';
     ufController.text = cidade.uf ?? '';
-    ibgController.text = cidade.ibge ?? '';
+    ibgeController.text = cidade.ibge ?? '';
   }
 
   Cidade toEntity() {
@@ -23,19 +23,19 @@ class CidadeViewModel {
         id: id!,
         nome: nomeController.text,
         uf: ufController.text,
-        ibge: ibgController.text);
+        ibge: ibgeController.text);
   }
 
   void reset() {
     nomeController.clear();
     ufController.clear();
-    ibgController.clear();
+    ibgeController.clear();
   }
 
   void dispose() {
     nomeController.dispose();
     ufController.dispose();
-    ibgController.dispose();
+    ibgeController.dispose();
   }
 
   @override

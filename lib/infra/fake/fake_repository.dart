@@ -51,6 +51,6 @@ class FakeRepository<T extends Entity<T>> extends IRepository<T> {
   @override
   Future<ResultData<List<T>>> findAll(T entity) async {
     await Future.delayed(const Duration(milliseconds: 500));
-    return ResultData(success: true, data: List<T>.from(fakeData));
+    return ResultData(success: true, data: fakeData);
   }
 }

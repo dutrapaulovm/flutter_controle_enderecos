@@ -62,3 +62,22 @@ void showExitDialog(BuildContext context, {Function()? onPressed}) {
     ),
   );
 }
+
+Future<bool?> showConfirmDialog(BuildContext context,
+    {required String title, required String content}) {
+  return showDialog<bool>(
+    context: context,
+    builder: (_) => AlertDialog(
+      title: Text(title),
+      content: Text(content),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Não")),
+        TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Sim")),
+      ],
+    ),
+  );
+}

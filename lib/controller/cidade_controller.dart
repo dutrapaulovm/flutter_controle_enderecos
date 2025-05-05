@@ -2,6 +2,7 @@ import 'package:flutter_controle_enderecos/controller/controller.dart';
 import 'package:flutter_controle_enderecos/domain/models/cidade.dart';
 import 'package:flutter_controle_enderecos/domain/repository/cidade_repository.dart';
 import 'package:flutter_controle_enderecos/infra/result_data.dart';
+import 'package:flutter_controle_enderecos/utils/utils.dart' as util;
 import 'package:flutter_controle_enderecos/view_model/cidade_view_model.dart';
 
 class CidadeController extends Controller<Cidade> {
@@ -22,17 +23,24 @@ class CidadeController extends Controller<Cidade> {
   }
 
   String? nomeValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
+    if (util.isEmpty(value)) {
       return 'O nome do cidade é obrigatório';
     }
     return null;
   }
 
+  String? ibgeValidator(String? value) {
+    if (util.isEmpty(value)) {
+      return 'O código IBGE é obrigatória';
+    }
+    return null;
+  }
+
   String? ufValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
+    if (util.isEmpty(value)) {
       return 'A sigla (UF) é obrigatória';
     }
-    if (value.trim().length != 2) {
+    if (value!.trim().length != 2) {
       return 'A UF deve conter exatamente 2 letras';
     }
     return null;

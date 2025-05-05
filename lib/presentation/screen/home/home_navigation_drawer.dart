@@ -40,6 +40,11 @@ class HomeNavigationDrawer extends StatelessWidget {
           icon: Icons.abc,
           rota: SearchEstadoScreen.routeName,
           title: "Estado"),
+      SearchCidadeScreen.routeName: MenuItemWidget(
+          selected: selectedIndex == SearchCidadeScreen.routeName,
+          icon: Icons.abc,
+          rota: SearchCidadeScreen.routeName,
+          title: "Cidade"),
       "sair": MenuItemWidget(
           onTap: () {
             showExitDialog(context, onPressed: () => _logout(context));
