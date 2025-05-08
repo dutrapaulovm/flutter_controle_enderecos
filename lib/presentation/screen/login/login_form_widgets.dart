@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/controller/user_controller.dart';
+import 'package:flutter_controle_enderecos/controller/usuario_controller.dart';
 import 'package:flutter_controle_enderecos/presentation/app/app_form.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/register_user/register_user_screen.dart';
+import 'package:flutter_controle_enderecos/presentation/screen/register_user/register_user_form_screen_start.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 
 class LoginFormWidget extends StatefulWidget {
-  final UserController loginController;
+  final UsuarioController loginController;
   final VoidCallback onSubmit;
 
   const LoginFormWidget({
@@ -127,7 +127,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             TextButton(
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const RegisterUserScreen()),
+                MaterialPageRoute(
+                    builder: (_) => const RegisterUserFormScreenStart()),
               ),
               child: RichText(
                 text: const TextSpan(

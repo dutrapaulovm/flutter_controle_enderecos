@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Cliente {
-  int? id;
+import 'package:flutter_controle_enderecos/domain/models/entity.dart';
+
+class Cliente extends Entity<Cliente> {
   String? nome;
   String? email;
   String? telefone;
@@ -16,7 +17,7 @@ class Cliente {
   String? nomeEstado;
   String? uf;
   Cliente({
-    this.id,
+    super.id,
     this.nome,
     this.email,
     this.telefone,
@@ -83,7 +84,7 @@ class Cliente {
 
   factory Cliente.fromMap(Map<String, dynamic> map) {
     return Cliente(
-      id: map['id'] != null ? map['id'] as int : null,
+      id: map['id'] != null ? map['id'] as int : 0,
       nome: map['nome'] != null ? map['nome'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       telefone: map['telefone'] != null ? map['telefone'] as String : null,
@@ -145,5 +146,13 @@ class Cliente {
         idEstado.hashCode ^
         nomeEstado.hashCode ^
         uf.hashCode;
+  }
+
+  @override
+  String get entityName => "cliente";
+
+  @override
+  Cliente fromMap(Map<String, dynamic> map) {
+    return Cliente.fromMap(map);
   }
 }

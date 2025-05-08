@@ -1,4 +1,4 @@
-bool emailValidator(String? email) {
+bool emailRegexValidator(String? email) {
   final RegExp emailExp = RegExp(
     r"^[a-zA-Z0-9]+([._%+-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$",
   );
@@ -44,4 +44,27 @@ bool isCurrencyValidator(String? value, {double minValue = 0.0}) {
 
 bool isEmpty(String? value) {
   return (value == null || value.isEmpty);
+}
+
+String? ufValidator(String? value) {
+  if (isEmpty(value)) {
+    return 'A sigla (UF) é obrigatória';
+  }
+  if (value!.trim().length != 2) {
+    return 'A UF deve conter exatamente 2 letras';
+  }
+  return null;
+}
+
+String? emailValidator(String? value) {
+  if (value == null || value.isEmpty) return 'Campo obrigatório.';
+  if (!emailRegexValidator(value)) return 'Email inválido!';
+  return null;
+}
+
+String? fieldValidator(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'Campo obrigatório';
+  }
+  return null;
 }

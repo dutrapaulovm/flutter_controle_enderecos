@@ -5,6 +5,7 @@ import 'package:flutter_controle_enderecos/infra/result_data.dart';
 import 'package:flutter_controle_enderecos/presentation/app/generic_form_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
+import 'package:flutter_controle_enderecos/utils/utils.dart' as util;
 
 class EstadoFormScreen extends StatefulWidget {
   static const String routeName = '/estado_screen';
@@ -19,7 +20,7 @@ class EstadoFormScreen extends StatefulWidget {
 
 class EstadoFormScreenState extends State<EstadoFormScreen> {
   final EstadoController controller =
-      ServiceLocator.instance.getService(ServiceKeys.controllerEstado);
+      ServiceLocator.instance.getService(ServiceKeys.controllerEstado.name);
 
   final GlobalKey<GenericFormScreenState<Estado, EstadoController>>
       _formScreenKey = GlobalKey();
@@ -44,9 +45,8 @@ class EstadoFormScreenState extends State<EstadoFormScreen> {
   }
 
   Widget buildEstadoForm() {
-    //final screenHeight = MediaQuery.of(context).size.height;
-    //if (isLoading) return const Center(child: CircularProgress());
-    //Widget spacer(double factor) => SizedBox(height: screenHeight * factor);
+    final screenHeight = MediaQuery.of(context).size.height;
+    Widget spacer(double factor) => SizedBox(height: screenHeight * factor);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,7 +54,7 @@ class EstadoFormScreenState extends State<EstadoFormScreen> {
         spacer(0.10),
         InputFormField(
           controller: controller.estadoViewModel.nomeController,
-          validator: controller.nomeValidator,
+          validator: util.fieldValidator,
           labelText: 'Nome do Estado',
           maxLength: 60,
           textInputAction: TextInputAction.next,
@@ -62,7 +62,7 @@ class EstadoFormScreenState extends State<EstadoFormScreen> {
         spacer(0.025),
         InputFormField(
           controller: controller.estadoViewModel.ufController,
-          validator: controller.ufValidator,
+          validator: util.ufValidator,
           labelText: 'Sigla (UF)',
           textCapitalization: TextCapitalization.characters,
           maxLength: 2,

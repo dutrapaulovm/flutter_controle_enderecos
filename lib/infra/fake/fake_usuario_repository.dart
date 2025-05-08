@@ -39,8 +39,17 @@ class FakeUsuarioRepository extends UsuarioRepository {
     if (index == -1) {
       return ResultData(success: false, message: 'Usuário não encontrado');
     }
+
+    EncryptionContext encryptionContext = EncryptionContext();
+
+    EncryptedPasswordResult passwordResult =
+        encryptionContext.encryptPassword(entity.password!, salt: entity.salt);
+
+    entity.password = passwordResult.hash;
+
     _usuarios[index] = entity;
     return ResultData(success: true, data: 1);
+    
   }
 
   @override
@@ -59,7 +68,7 @@ class FakeUsuarioRepository extends UsuarioRepository {
   @override
   Future<ResultData<List<Usuario>>> findAll(Usuario entity) async {
     await Future.delayed(const Duration(milliseconds: 500));
-    return ResultData(success: true, data: List<Usuario>.from(_usuarios));
+    return ResultData(success: true, data: _usuarios);
   }
 
   @override

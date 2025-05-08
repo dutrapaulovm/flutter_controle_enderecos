@@ -1,10 +1,13 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/estado/search_estado_screen.dart';
+import 'package:flutter_controle_enderecos/authenticated.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/home/home_navigation_bar.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/home/home_navigation_drawer.dart';
+import 'package:flutter_controle_enderecos/presentation/screen/login/login_screen.dart';
+import 'package:flutter_controle_enderecos/presentation/screen/register_user/search_usuario_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/app_scaffold.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/dasboard_card.dart';
+import 'package:flutter_controle_enderecos/presentation/widgets/dialog_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home_screen";
@@ -19,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<_HomeScreenState> _widgetKey = GlobalKey<_HomeScreenState>();
 
-  String _selectedDrawerItem = SearchEstadoScreen.routeName;
+  String _selectedDrawerItem = SearchUsuarioScreen.routeName;
   int _currentIndexNavigationBar = 0;
 
   void _onSelectItem(String index) {
@@ -34,6 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<void> _logout(BuildContext context) async {
+    Authenticated authenticated = Authenticated();
+    await authenticated.deleteToken();
+
+    if (!mounted) return;
+    Navigator.pop(context);
+    Navigator.pushNamed(context, LoginScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,6 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
         key: _widgetKey,
         selectedIndex: _selectedDrawerItem,
         onSelectItem: _onSelectItem,
+        onExit: () {
+          showExitDialog(context, onPressed: () => _logout(context));
+        },
       ),
       bottomNavigationBar: HomeNavigationBar(
         currentIndex: _currentIndexNavigationBar,

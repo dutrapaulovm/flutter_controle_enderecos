@@ -6,48 +6,36 @@ import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 class HomeNavigationDrawer extends StatelessWidget {
   String selectedIndex;
   final Function(String item) onSelectItem;
+  final Function() onExit;
 
   HomeNavigationDrawer(
-      {super.key, required this.onSelectItem, this.selectedIndex = ""});
+      {super.key,
+      required this.onSelectItem,
+      required this.onExit,
+      this.selectedIndex = ""});
 
   @override
   Widget build(BuildContext context) {
     return _drawer(context);
   }
 
-  Future<void> _logout(BuildContext context) async {
-    Authenticated authenticated = Authenticated();
-    await authenticated.deleteToken();
-
-    // Voltar para tela de login (exemplo fictício)
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-    );
-  }
-
   Widget _drawer(BuildContext context) {
     // Criando o mapa
     Map<String, Widget> drawerItems = {
       HomeScreen.routeName: const DrawerHeader(child: Text("Home")),
-      "usuario": MenuItemWidget(
-          selected: selectedIndex == "usuario",
-          onTap: () => onSelectItem("usuario"),
-          icon: Icons.person,
-          title: "Usuário"),
-      SearchEstadoScreen.routeName: MenuItemWidget(
-          selected: selectedIndex == SearchEstadoScreen.routeName,
-          icon: Icons.abc,
-          rota: SearchEstadoScreen.routeName,
-          title: "Estado"),
-      SearchCidadeScreen.routeName: MenuItemWidget(
-          selected: selectedIndex == SearchCidadeScreen.routeName,
-          icon: Icons.abc,
-          rota: SearchCidadeScreen.routeName,
-          title: "Cidade"),
+      SearchUsuarioScreen.routeName: _buildMenuItem(
+          SearchUsuarioScreen.routeName, "Usuário", Icons.people),
+      SearchClienteScreen.routeName:
+          _buildMenuItem(SearchClienteScreen.routeName, "Cliente", Icons.abc),
+      SearchEstadoScreen.routeName:
+          _buildMenuItem(SearchEstadoScreen.routeName, "Estado", Icons.abc),
+      SearchCidadeScreen.routeName:
+          _buildMenuItem(SearchCidadeScreen.routeName, "Cidade", Icons.abc),
       "sair": MenuItemWidget(
-          onTap: () {
-            showExitDialog(context, onPressed: () => _logout(context));
+          onTap: () async {
+            Future.microtask(() {
+              onExit();
+            });
           },
           selected: selectedIndex == "sair",
           icon: Icons.abc,
@@ -63,5 +51,14 @@ class HomeNavigationDrawer extends StatelessWidget {
                   ))
               .toList()),
     );
+  }
+
+  MenuItemWidget _buildMenuItem(String route, String title, IconData icon) {
+    return MenuItemWidget(
+        selected: selectedIndex == route,
+        onTap: () => onSelectItem(route),
+        rota: route,
+        icon: icon,
+        title: title);
   }
 }

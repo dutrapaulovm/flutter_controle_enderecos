@@ -26,6 +26,8 @@ class EncryptionContext {
     _encryptionStrategy = AES256Encryption(keyString: _defaultKey);
   }
 
+  static EncryptionContext get instance => _instance;
+
   /// Retorna a instância única do contexto
   factory EncryptionContext() => _instance;
 

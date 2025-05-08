@@ -6,13 +6,13 @@ import 'package:flutter_controle_enderecos/service_locator.dart';
 import 'package:flutter_controle_enderecos/utils/encrypt/encryption_context.dart';
 
 class LoginService {
-  final UsuarioRepository _repository = ServiceLocator.instance
-      .getService(ServiceKeys.repositoryUsuario) as UsuarioRepository;
+  final UsuarioRepository repository = ServiceLocator.instance
+      .getService(ServiceKeys.repositoryUsuario.name) as UsuarioRepository;
   EncryptionContext context = EncryptionContext();
   Authenticated authenticated = Authenticated();
 
   // Método para realizar o login
-  Future<ResultData> signIn(Usuario user) async {
+  Future<ResultData> save(Usuario user) async {
     final resultApplication = ResultData();
     resultApplication.success = false;
 
@@ -21,9 +21,12 @@ class LoginService {
       resultApplication.message = "Email e senha são obrigatórios.";
       return resultApplication;
     }
-
-    // Chama o repositório para autenticar o usuário
-    await _repository.insert(user);
+    if (user.id <= 0) {
+      // Chama o repositório para autenticar o usuário
+      await repository.insert(user);
+    } else {
+      await repository.update(user);
+    }
 
     // Se o login for bem-sucedido, marca o sucesso e retorna o usuário
     resultApplication.success = true;
@@ -42,7 +45,7 @@ class LoginService {
     }
 
     // Chama o repositório para autenticar o usuário
-    final result = await _repository.login(login, senha);
+    final result = await repository.login(login, senha);
 
     // Verifica se o usuário não foi encontrado ou a senha está incorreta
     if (result == null || result.data == null || result.data!.id == -1) {

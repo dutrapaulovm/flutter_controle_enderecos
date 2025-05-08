@@ -1,15 +1,12 @@
-import 'package:flutter_controle_enderecos/controller/cidade_controller.dart';
+import 'package:flutter_controle_enderecos/controller/cliente_controller.dart';
 import 'package:flutter_controle_enderecos/controller/controllers.dart';
 import 'package:flutter_controle_enderecos/domain/repository/cidade_repository.dart';
+import 'package:flutter_controle_enderecos/domain/repository/cliente_repository.dart';
 import 'package:flutter_controle_enderecos/domain/repository/estado_repository.dart';
 import 'package:flutter_controle_enderecos/domain/repository/usuario_repository.dart';
 import 'package:flutter_controle_enderecos/exceptions.dart';
 import 'package:flutter_controle_enderecos/infra/api/api_usuario_repository.dart';
-import 'package:flutter_controle_enderecos/infra/fake/database_fake.dart';
-import 'package:flutter_controle_enderecos/infra/fake/estado_fake_data_source.dart';
-import 'package:flutter_controle_enderecos/infra/fake/fake_cidade_repository.dart';
-import 'package:flutter_controle_enderecos/infra/fake/fake_estado_repository.dart';
-import 'package:flutter_controle_enderecos/infra/fake/fake_usuario_repository.dart';
+import 'package:flutter_controle_enderecos/infra/fake/infra_fake.dart';
 
 /// A classe `ServiceLocator` fornece um mecanismo centralizado para
 ///  registrar e recuperar serviços em uma aplicação.
@@ -47,7 +44,6 @@ class ServiceLocator {
   /// Um mapa que mantém os serviços registrados, onde a chave é uma
   /// String representando o nome do serviço e o valor é o próprio serviço.
   final Map<String, dynamic> _singletons = {};
-  //final Map<Type, Function> _singletons = {};
   final Map<String, Function> _factories = {};
 
   /// Registra um serviço com a chave especificada.
@@ -102,14 +98,16 @@ class ServiceLocator {
 }
 
 /// Contém as chaves usadas para registrar e recuperar serviços no `ServiceLocator`.
-class ServiceKeys {
+enum ServiceKeys {
   /// Chave de identificação para o serviço relacionado ao repositório de usuários.
-  static const repositoryUsuario = 'repositoryUsuario';
-  static const repositoryEstado = 'repositoryEstado';
-  static const repositoryCidade = 'repositoryCidade';
-  static const controllerEstado = "controllerEstado";
-  static const controllerUser = "controllerUser";
-  static const controllerCidade = "controllerCidade";
+  repositoryUsuario, // = 'repositoryUsuario';
+  repositoryEstado, // = 'repositoryEstado';
+  repositoryCidade, // = 'repositoryCidade';
+  repositoryCliente, // = 'repositoryCliente';
+  controllerEstado, // = "controllerEstado";
+  controllerUser, // = "controllerUser";
+  controllerCidade, // = "controllerCidade";
+  controllerCliente // = "controllerCliente";
 }
 
 /// Enum que define os modos disponíveis para configuração de repositórios.
@@ -129,7 +127,7 @@ enum RepositoryMode {
 /// Registra os repositórios necessários no `ServiceLocator` usando o modo de produção.
 void initApiRepositories() {
   ServiceLocator.instance.registerSingleton(
-    ServiceKeys.repositoryUsuario,
+    ServiceKeys.repositoryUsuario.name,
     () => ApiUsuarioRepository(),
   );
 }
@@ -139,42 +137,64 @@ void initApiRepositories() {
 /// Ideal para uso em ambientes de desenvolvimento ou durante testes unitários.
 void initFakeRepositories() {
   ServiceLocator.instance.registerSingleton(
-    ServiceKeys.repositoryUsuario,
+    ServiceKeys.repositoryUsuario.name,
     () => FakeUsuarioRepository(),
   );
   ServiceLocator.instance.registerSingleton(
-    ServiceKeys.repositoryEstado,
+    ServiceKeys.repositoryEstado.name,
     () => FakeEstadoRepository(
         fakeData: estadoFakeData, idCounter: estadoFakeData.length + 1),
   );
 
   ServiceLocator.instance.registerSingleton(
-    ServiceKeys.repositoryCidade,
+    ServiceKeys.repositoryCidade.name,
     () => FakeCidadeRepository(
         fakeData: cidadesFake, idCounter: cidadesFake.length + 1),
+  );
+
+  ServiceLocator.instance.registerSingleton(
+    ServiceKeys.repositoryCliente.name,
+    () => FakeClienteRepository(
+        fakeData: clientesFakes, idCounter: cidadesFake.length + 1),
   );
 }
 
 void setupControllers() {
-  EstadoRepository repository =
-      ServiceLocator.instance.getService(ServiceKeys.repositoryEstado);
+  ClienteRepository repositoryCliente =
+      ServiceLocator.instance.getService(ServiceKeys.repositoryCliente.name);
+
   ServiceLocator.instance.registerFactory(
-    ServiceKeys.controllerEstado,
+    ServiceKeys.controllerCliente.name,
+    () => ClienteController(repository: repositoryCliente),
+  );
+
+  EstadoRepository repository =
+      ServiceLocator.instance.getService(ServiceKeys.repositoryEstado.name);
+
+  ServiceLocator.instance.registerFactory(
+    ServiceKeys.controllerEstado.name,
     () => EstadoController(repository: repository),
   );
 
   CidadeRepository repositoryCidade =
-      ServiceLocator.instance.getService(ServiceKeys.repositoryCidade);
+      ServiceLocator.instance.getService(ServiceKeys.repositoryCidade.name);
+
+  /*final controller = GenericController(
+      viewModel: CidadeViewModel(),
+      repository: repositoryCidade,
+      titleNew: "Nova Cidade",
+      titleEdit: "Editar Cidade");*/
+
   ServiceLocator.instance.registerFactory(
-    ServiceKeys.controllerCidade,
+    ServiceKeys.controllerCidade.name,
     () => CidadeController(repository: repositoryCidade),
   );
 
   UsuarioRepository usuarioRepository =
-      ServiceLocator.instance.getService(ServiceKeys.repositoryUsuario);
+      ServiceLocator.instance.getService(ServiceKeys.repositoryUsuario.name);
   ServiceLocator.instance.registerFactory(
-    ServiceKeys.controllerUser,
-    () => UserController(),
+    ServiceKeys.controllerUser.name,
+    () => UsuarioController(),
   );
 }
 

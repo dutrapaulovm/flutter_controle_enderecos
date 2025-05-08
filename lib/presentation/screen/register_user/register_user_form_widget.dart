@@ -8,7 +8,7 @@ import 'package:flutter_controle_enderecos/utils/formatter/phone_input_formatter
 import 'package:flutter_controle_enderecos/view_model/usuario_view_model.dart';
 
 class RegisterUserFormWidget extends StatefulWidget {
-  final UserController userController;
+  final UsuarioController userController;
   final VoidCallback onSubmit;
 
   const RegisterUserFormWidget({
@@ -79,7 +79,7 @@ class _RegisterUserFormWidgetState extends State<RegisterUserFormWidget> {
   }
 
   void preencherControllersComDadosFicticios() {
-    UserController userController = widget.userController;
+    UsuarioController userController = widget.userController;
     UsuarioViewModel viewModel = userController.usuarioViewModel;
     viewModel.nomeController.text = 'João da Silva';
     viewModel.loginController.text = 'joaosilva';

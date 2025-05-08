@@ -38,7 +38,8 @@ Future<void> showErrorDialog(
   );
 }
 
-void showExitDialog(BuildContext context, {Function()? onPressed}) {
+Future<void> showExitDialog(BuildContext context,
+    {Function()? onPressed}) async {
   showDialog(
     context: context,
     builder: (_) => AlertDialog(

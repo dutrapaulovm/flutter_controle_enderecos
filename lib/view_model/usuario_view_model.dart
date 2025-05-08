@@ -25,6 +25,7 @@ class UsuarioViewModel {
     nomeController.text = usuario.nome ?? '';
     saltController.text = usuario.salt ?? '';
     passwordController.text = usuario.password ?? '';
+    confirmPasswordController.text = usuario.password ?? '';
     loginController.text = usuario.login ?? '';
     emailController.text = usuario.email ?? '';
     statusController.text = usuario.status ?? '';

@@ -1,31 +1,31 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/controller/cidade_controller.dart';
-import 'package:flutter_controle_enderecos/controller/generic_controller.dart';
-import 'package:flutter_controle_enderecos/domain/models/cidade.dart';
+import 'package:flutter_controle_enderecos/controller/cliente_controller.dart';
+
+import 'package:flutter_controle_enderecos/domain/models/cliente.dart';
 import 'package:flutter_controle_enderecos/presentation/app/generic_search_screen.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/cidade/cidade_form_screen.dart';
-import 'package:flutter_controle_enderecos/presentation/screen/screens.dart';
+import 'package:flutter_controle_enderecos/presentation/screen/cliente/cliente_form_screen.dart';
+
 import 'package:flutter_controle_enderecos/service_locator.dart';
 import 'package:flutter_controle_enderecos/utils/util.dart';
 
-class SearchCidadeScreen extends StatefulWidget {
-  static const String routeName = "/search_cidade_screen";
+class SearchClienteScreen extends StatefulWidget {
+  static const String routeName = "/search_cliente_screen";
 
-  const SearchCidadeScreen({super.key});
+  const SearchClienteScreen({super.key});
 
   @override
-  State<SearchCidadeScreen> createState() => SearchCidadeScreenState();
+  State<SearchClienteScreen> createState() => SearchClienteScreenState();
 }
 
-class SearchCidadeScreenState extends State<SearchCidadeScreen> {
-  final CidadeController controller =
-      ServiceLocator.instance.getService(ServiceKeys.controllerCidade.name);
+class SearchClienteScreenState extends State<SearchClienteScreen> {
+  final ClienteController controller =
+      ServiceLocator.instance.getService(ServiceKeys.controllerCliente.name);
 
   @override
   Widget build(BuildContext context) {
-    return GenericSearchScreen<Cidade>(
-      title: "Cidades",
+    return GenericSearchScreen<Cliente>(
+      title: "Clientes",
       onLoadItems: () async {
         final result = await controller.findAll();
         if (!result.success) {
@@ -33,27 +33,23 @@ class SearchCidadeScreenState extends State<SearchCidadeScreen> {
         }
         return result.data!;
       },
-      onTapItem: (cidade) async {
-        final bundle = Bundle()..put(Argument.entity, cidade);
-        await Navigator.pushNamed(context, CidadeFormScreen.routeName,
+      onTapItem: (cliente) async {
+        final bundle = Bundle()..put(Argument.entity, cliente);
+        await Navigator.pushNamed(context, ClienteFormScreen.routeName,
             arguments: bundle);
         setState(() {});
       },
-      onDeleteItem: (cidade) async {
-        controller.cidadeViewModel.fromEntity(cidade);
+      onDeleteItem: (cliente) async {
+        controller.clienteViewModel.fromEntity(cliente);
         return await controller.delete();
       },
-      searchableFields: {
-        "nome": (c) => c.nome ?? '',
-        "uf": (c) => c.uf ?? '',
-        "ibge": (c) => c.ibge ?? '',
-      },
-      titleBuilder: (cidade) => Column(
+      searchableFields: {"nome": (c) => c.nome ?? '', "uf": (c) => c.uf ?? ''},
+      titleBuilder: (cliente) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(cidade.nome!,
+          Text(cliente.nome!,
               style: const TextStyle(fontWeight: FontWeight.bold)),
-          Text(cidade.uf!, style: const TextStyle(color: Colors.grey)),
+          Text(cliente.uf!, style: const TextStyle(color: Colors.grey)),
         ],
       ),
     );
@@ -61,10 +57,10 @@ class SearchCidadeScreenState extends State<SearchCidadeScreen> {
 }
 
 /*
-class SearchCidadeScreenState
-    extends SearchBaseState<SearchCidadeScreen, Cidade> {
-  final CidadeController cidadeController =
-      ServiceLocator.instance.getService(ServiceKeys.controllerCidade);
+class SearchClienteScreenState
+    extends SearchBaseState<SearchClienteScreen, Cliente> {
+  final ClienteController clienteController =
+      ServiceLocator.instance.getService(ServiceKeys.controllerCliente);
 
   @override
   void initState() {
@@ -77,7 +73,7 @@ class SearchCidadeScreenState
       isLoading = true;
     });
 
-    ResultData result = await cidadeController.findAll();
+    ResultData result = await clienteController.findAll();
 
     if (!mounted) return;
 
@@ -101,40 +97,40 @@ class SearchCidadeScreenState
         child: Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: const Text('Cidade'),
+        title: const Text('Cliente'),
       ),
       body: _buildBody(),
     ));
   }
 
   Widget _buildBody() {
-    return SearchCidadeBody(
+    return SearchClienteBody(
       itemProvider: itemProvider,
       filter: (value) => filter(value),
       isLoading: isLoading,
-      cidadeController: cidadeController,
+      clienteController: clienteController,
     );
   }
 }
 
-class SearchCidadeBody extends StatefulWidget {
-  final ListModel<Cidade> itemProvider;
+class SearchClienteBody extends StatefulWidget {
+  final ListModel<Cliente> itemProvider;
   final Function(String value) filter;
   bool isLoading = false;
-  final CidadeController cidadeController;
-  SearchCidadeBody({
+  final ClienteController clienteController;
+  SearchClienteBody({
     super.key,
     required this.itemProvider,
     required this.filter,
-    required this.cidadeController,
+    required this.clienteController,
     required this.isLoading,
   });
 
   @override
-  State<SearchCidadeBody> createState() => _SearchCidadeBodyState();
+  State<SearchClienteBody> createState() => _SearchClienteBodyState();
 }
 
-class _SearchCidadeBodyState extends State<SearchCidadeBody> {
+class _SearchClienteBodyState extends State<SearchClienteBody> {
   final TextEditingController _fieldController = TextEditingController();
   String searchField = "nome";
 
@@ -205,7 +201,7 @@ class _SearchCidadeBodyState extends State<SearchCidadeBody> {
                                     itemProvider.filteredResults[index];
                                 bundle.put(Argument.entity, entity);
                                 await Navigator.pushNamed(
-                                    context, CidadeFormScreen.routeName,
+                                    context, ClienteFormScreen.routeName,
                                     arguments: bundle);
                                 setState(() {}); // se necessário
                               },
@@ -264,8 +260,8 @@ class _SearchCidadeBodyState extends State<SearchCidadeBody> {
     setState(() => widget.isLoading = true);
 
     var entity = widget.itemProvider.filteredResults[index];
-    widget.cidadeController.cidadeViewModel.fromEntity(entity);
-    ResultData result = await widget.cidadeController.delete();
+    widget.clienteController.clienteViewModel.fromEntity(entity);
+    ResultData result = await widget.clienteController.delete();
 
     if (!mounted) return;
 

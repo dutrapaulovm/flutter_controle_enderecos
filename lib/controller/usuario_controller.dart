@@ -6,10 +6,12 @@ import 'package:flutter_controle_enderecos/utils/utils.dart' as util;
 import 'package:flutter_controle_enderecos/view_model/login_view_model.dart';
 import 'package:flutter_controle_enderecos/view_model/usuario_view_model.dart';
 
-class UserController extends Controller<Usuario> {
+class UsuarioController extends Controller<Usuario> {
   LoginViewModel loginViewModel = LoginViewModel();
   UsuarioViewModel usuarioViewModel = UsuarioViewModel();
   final LoginService _loginService = LoginService();
+
+  Usuario? usuario;
 
   void init() {
     loginViewModel.reset();
@@ -17,9 +19,14 @@ class UserController extends Controller<Usuario> {
 
   @override
   Future<ResultData> save() async {
+    final user = usuarioViewModel.toEntity();
+    return await _loginService.save(user);
+  }
+
+  Future<ResultData> signIn() async {
     Usuario user = usuarioViewModel.toEntity();
     user.id = -1;
-    final resultApplication = await _loginService.signIn(user);
+    final resultApplication = await _loginService.save(user);
     return resultApplication;
   }
 
@@ -37,7 +44,6 @@ class UserController extends Controller<Usuario> {
     if (util.isEmpty(value)) {
       return 'Campo obrigatório.';
     }
-
     return null;
   }
 
@@ -52,7 +58,7 @@ class UserController extends Controller<Usuario> {
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) return 'Campo obrigatório.';
-    if (!util.emailValidator(value)) return 'Email inválido!';
+    if (!util.emailRegexValidator(value)) return 'Email inválido!';
     return null;
   }
 
@@ -82,23 +88,27 @@ class UserController extends Controller<Usuario> {
   }
 
   @override
-  Future<ResultData> delete() {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<ResultData> delete() async {
+    final entity = usuarioViewModel.toEntity();
+    if (entity.id >= 0) {
+      return await _loginService.repository.delete(entity);
+    }
+    return ResultData();
   }
 
   @override
-  Future<ResultData> findAll() {
-    // TODO: implement findAll
-    throw UnimplementedError();
+  Future<ResultData> findAll() async {
+    return await _loginService.repository.findAll(Usuario());
   }
 
   @override
   void fromEntity(Usuario entity) {
-    // TODO: implement fromEntity
+    usuario = entity;
+    return usuarioViewModel.fromEntity(entity);
   }
 
   @override
-  // TODO: implement title
-  String get title => throw UnimplementedError();
+  String get title {
+    return usuario == null ? 'Novo Usuário' : 'Editar Usuário';
+  }
 }

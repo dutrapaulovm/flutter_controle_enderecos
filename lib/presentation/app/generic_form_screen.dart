@@ -68,6 +68,7 @@ class GenericFormScreenState<E extends Entity<E>, C extends Controller<E>>
   // Chave global para o formulário, utilizada para validação.
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late final FocusScopeNode _focusNode;
+
   @override
   void initState() {
     super.initState();
@@ -89,7 +90,9 @@ class GenericFormScreenState<E extends Entity<E>, C extends Controller<E>>
 
   Future<void> submitForm() async {
     final form = _formKey.currentState;
+
     if (form == null || !form.validate()) return;
+
     form.save();
 
     // ⚡ CHAMA O CALLBACK ANTES DO SUBMIT
@@ -110,11 +113,11 @@ class GenericFormScreenState<E extends Entity<E>, C extends Controller<E>>
 
   Future<ResultData> _onAction() async {
     try {
-      if (widget.onActionSubmit != null) {
-        return await widget.onActionSubmit!.call();
-      } else {
+      if (widget.onActionSubmit == null) {
         return ResultData(success: false, message: 'Nenhuma ação definida.');
       }
+
+      return await widget.onActionSubmit!.call();
     } catch (e) {
       if (!mounted) {
         return ResultData(success: false, message: 'Erro inesperado.');
@@ -145,30 +148,41 @@ class GenericFormScreenState<E extends Entity<E>, C extends Controller<E>>
     if (!result.success) {
       showErrorDialog(result, context);
       _stopLoading();
-    } else {
-      _stopLoading();
-      // Sucesso: exibe mensagem e chama callback onSuccess se houver.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Salvo com sucesso')),
-      );
-      widget.onSuccess?.call();
+      return;
     }
+
+    _stopLoading();
+    // Sucesso: exibe mensagem e chama callback onSuccess se houver.
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Salvo com sucesso')),
+    );
+    widget.onSuccess?.call();
   }
 
   void _stopLoading() {
     setState(() => isLoading = false);
   }
 
+  Widget _buildButtonIcon() {
+    return IconButton(
+        onPressed: isLoading ? null : submitForm,
+        icon: const Icon(Icons.check));
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> actions = [];
+
+    if (widget.actionsButtons != null) {
+      for (var element in widget.actionsButtons!) {
+        actions.add(element);
+      }
+    }
+    actions.add(_buildButtonIcon());
+
     return Scaffold(
         appBar: AppBar(
-          actions: widget.actionsButtons ??
-              [
-                IconButton(
-                    onPressed: isLoading ? null : submitForm,
-                    icon: const Icon(Icons.check))
-              ],
+          actions: actions,
           title: Text(
             widget.controller.title,
           ),

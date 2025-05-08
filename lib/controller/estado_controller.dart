@@ -21,23 +21,6 @@ class EstadoController extends Controller<Estado> {
     return estado == null ? 'Novo Estado' : 'Editar Estado';
   }
 
-  String? nomeValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'O nome do estado é obrigatório';
-    }
-    return null;
-  }
-
-  String? ufValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'A sigla (UF) é obrigatória';
-    }
-    if (value.trim().length != 2) {
-      return 'A UF deve conter exatamente 2 letras';
-    }
-    return null;
-  }
-
   @override
   Future<ResultData> save() async {
     final estado = estadoViewModel.toEntity();

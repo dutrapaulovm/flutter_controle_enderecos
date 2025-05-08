@@ -18,7 +18,7 @@ class SearchEstadoScreen extends StatefulWidget {
 
 class SearchEstadoScreenState extends State<SearchEstadoScreen> {
   final EstadoController controller =
-      ServiceLocator.instance.getService(ServiceKeys.controllerEstado);
+      ServiceLocator.instance.getService(ServiceKeys.controllerEstado.name);
 
   @override
   Widget build(BuildContext context) {

@@ -18,8 +18,13 @@ class ApplicationException implements Exception {
   String error() => toString();
 }
 
+/// Thrown by the Domain when a problem occurs.
+class DomainException extends ApplicationException {
+  DomainException({super.exception, super.message});
+}
+
 /// Thrown by the repository when a problem occurs.
-class RepositoryException extends ApplicationException {
+class RepositoryException extends DomainException {
   RepositoryException({super.exception, super.message});
 }
 

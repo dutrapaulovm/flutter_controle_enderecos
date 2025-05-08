@@ -19,13 +19,18 @@ class MenuItemWidget extends StatelessWidget {
       this.onTap});
 
   GestureTapCallback? _onTap(BuildContext context) {
-    return () {
+    return () async {
       // Verifica se a rota está definida na tabela de rotas
       bool isValidRoute = routes.keys.contains(rota);
+      Navigator.pop(context);
+
       if (isValidRoute) {
         Navigator.pushNamed(context, rota ?? "");
-      } else {
+      } /*else {
         Navigator.pop(context);
+      }*/
+      if (onTap != null) {
+        onTap!();
       }
     };
   }
@@ -36,6 +41,6 @@ class MenuItemWidget extends StatelessWidget {
         leading: Icon(icon),
         title: Text(title ?? ""),
         selected: selected,
-        onTap: onTap ?? _onTap(context));
+        onTap: _onTap(context));
   }
 }

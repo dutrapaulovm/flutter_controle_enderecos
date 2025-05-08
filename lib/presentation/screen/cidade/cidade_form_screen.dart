@@ -5,6 +5,7 @@ import 'package:flutter_controle_enderecos/infra/result_data.dart';
 import 'package:flutter_controle_enderecos/presentation/app/generic_form_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/widgets/widgets.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
+import 'package:flutter_controle_enderecos/utils/utils.dart' as util;
 
 class CidadeFormScreen extends StatefulWidget {
   static const String routeName = '/cidade_screen';
@@ -19,7 +20,7 @@ class CidadeFormScreen extends StatefulWidget {
 
 class CidadeFormScreenState extends State<CidadeFormScreen> {
   final CidadeController controller =
-      ServiceLocator.instance.getService(ServiceKeys.controllerCidade);
+      ServiceLocator.instance.getService(ServiceKeys.controllerCidade.name);
 
   final GlobalKey<GenericFormScreenState<Cidade, CidadeController>>
       _formScreenKey = GlobalKey();
@@ -44,9 +45,8 @@ class CidadeFormScreenState extends State<CidadeFormScreen> {
   }
 
   Widget buildCidadeForm() {
-    //final screenHeight = MediaQuery.of(context).size.height;
-    //if (isLoading) return const Center(child: CircularProgress());
-    //Widget spacer(double factor) => SizedBox(height: screenHeight * factor);
+    final screenHeight = MediaQuery.of(context).size.height;
+    Widget spacer(double factor) => SizedBox(height: screenHeight * factor);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,28 +54,31 @@ class CidadeFormScreenState extends State<CidadeFormScreen> {
         spacer(0.10),
         InputFormField(
           controller: controller.cidadeViewModel.nomeController,
-          validator: controller.nomeValidator,
+          validator: util.fieldValidator,
           labelText: 'Nome do Cidade',
           maxLength: 60,
           textInputAction: TextInputAction.next,
+          autoFocus: true,
         ),
         spacer(0.025),
         InputFormField(
           controller: controller.cidadeViewModel.ufController,
-          validator: controller.ufValidator,
+          validator: util.ufValidator,
           labelText: 'Sigla (UF)',
           textCapitalization: TextCapitalization.characters,
           maxLength: 2,
           textInputAction: TextInputAction.next,
+          autoFocus: true,
         ),
         spacer(0.025),
         InputFormField(
           controller: controller.cidadeViewModel.ibgeController,
-          validator: controller.ibgeValidator,
+          validator: util.fieldValidator,
           labelText: 'IBGE',
           textCapitalization: TextCapitalization.characters,
           maxLength: 10,
           textInputAction: TextInputAction.done,
+          autoFocus: true,
         ),
         spacer(0.05),
         FormButton(

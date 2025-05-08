@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_controle_enderecos/controller/user_controller.dart';
+import 'package:flutter_controle_enderecos/controller/usuario_controller.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/home/home_screen.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/login/login_form_widgets.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
@@ -14,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
-  UserController loginController =
-      ServiceLocator.instance.getService(ServiceKeys.controllerUser);
+  UsuarioController loginController =
+      ServiceLocator.instance.getService(ServiceKeys.controllerUser.name);
 
   bool isLoading = false;
   void submit() async {

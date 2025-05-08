@@ -3,19 +3,20 @@ import 'package:flutter_controle_enderecos/controller/controllers.dart';
 import 'package:flutter_controle_enderecos/presentation/screen/register_user/register_user_form_widget.dart';
 import 'package:flutter_controle_enderecos/service_locator.dart';
 
-class RegisterUserScreen extends StatefulWidget {
+class RegisterUserFormScreenStart extends StatefulWidget {
   static const String routeName = "/register_user_screen";
 
-  const RegisterUserScreen({super.key});
+  const RegisterUserFormScreenStart({super.key});
 
   @override
-  State<RegisterUserScreen> createState() => _RegisterUserScreenState();
+  State<RegisterUserFormScreenStart> createState() =>
+      _RegisterUserFormScreenStartState();
 }
 
-class _RegisterUserScreenState extends State<RegisterUserScreen>
-    with TickerProviderStateMixin {
-  UserController registerUserController =
-      ServiceLocator.instance.getService(ServiceKeys.controllerUser);
+class _RegisterUserFormScreenStartState
+    extends State<RegisterUserFormScreenStart> with TickerProviderStateMixin {
+  UsuarioController registerUserController =
+      ServiceLocator.instance.getService(ServiceKeys.controllerUser.name);
 
   bool isLoading = false;
 
